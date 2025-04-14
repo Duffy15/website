@@ -3,110 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marketing Manufacturer - Masterfully Crafted Marketing Utilities</title>
+    <title>Marketing Manufacturer - Quality Physical Marketing Materials</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-<body class="dark-mode"> <header class="hero-section">
+<body>
+
+    <header class="main-header">
         <nav class="main-nav">
-            <div class="logo">Marketing Manufacturer</div>
+            <div class="logo"><a href="index.html">Marketing Manufacturer</a></div>
             <ul>
-                <li><a href="#utilities">Utilities</a></li>
-                <li><a href="#benefits">Benefits</a></li>
-                <li><a href="#contact">Contact</a></li>
-                </ul>
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="apparel.html">Custom Apparel</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
         </nav>
+    </header>
+
+    <section class="hero-section fade-in-section">
         <div class="hero-content">
-            <h1>Marketing Utilities, Masterfully Crafted.</h1>
-            <p>Intelligent, efficient tools designed to streamline your workflow and boost results.</p>
-            <a href="#utilities" class="cta-button">Explore Our Utilities</a>
+            <h1>Tangible Marketing That Makes an Impact.</h1>
+            <p>High-quality banners, flags, roll-ups, stickers, and custom apparel crafted in Poznan, Poland.</p>
+            <a href="products.html" class="cta-button">Explore Our Products</a>
         </div>
-        </header>
+    </section>
 
     <main>
-        <section id="utilities" class="utilities-section">
-            <h2>The Tools You Need, Without the Clutter.</h2>
-            <div class="utilities-grid">
-                <div class="utility-card">
-                    <div class="card-icon"><i class="fa-solid fa-chart-line"></i></div>
-                    <h3>Analytics Dashboards</h3>
-                    <p>Unlock audience insights and track campaign performance effortlessly.</p>
-                    <a href="#" class="learn-more">Learn More &rarr;</a>
+        <section id="overview" class="overview-section">
+            <h2 class="fade-in-section">Your Partner for Physical Branding</h2>
+            <div class="overview-grid">
+                <div class="overview-item fade-in-section">
+                    <div class="overview-icon"><i class="fa-solid fa-flag"></i></div>
+                    <h3>Displays & Banners</h3>
+                    <p>Eye-catching roll-ups, banners, and beach flags for maximum visibility.</p>
+                    <a href="products.html#displays" class="learn-more">See Options &rarr;</a>
                 </div>
-                <div class="utility-card">
-                    <div class="card-icon"><i class="fa-solid fa-share-nodes"></i></div>
-                    <h3>Social Media Scheduler</h3>
-                    <p>Automate posting across platforms and save valuable time.</p>
-                     <a href="#" class="learn-more">Learn More &rarr;</a>
+                <div class="overview-item fade-in-section">
+                    <div class="overview-icon"><i class="fa-solid fa-tags"></i></div>
+                    <h3>Stickers & Decals</h3>
+                    <p>Durable, custom-printed stickers for branding, promotions, and more.</p>
+                     <a href="products.html#stickers" class="learn-more">View Stickers &rarr;</a>
                 </div>
-                <div class="utility-card">
-                    <div class="card-icon"><i class="fa-solid fa-envelope-open-text"></i></div>
-                    <h3>Email Template Builder</h3>
-                    <p>Create stunning, responsive emails faster than ever before.</p>
-                     <a href="#" class="learn-more">Learn More &rarr;</a>
-                </div>
-                 <div class="utility-card">
-                    <div class="card-icon"><i class="fa-solid fa-pen-ruler"></i></div>
-                    <h3>Content Idea Generator</h3>
-                    <p>Break through creative blocks with AI-powered suggestions.</p>
-                     <a href="#" class="learn-more">Learn More &rarr;</a>
+                <div class="overview-item fade-in-section">
+                    <div class="overview-icon"><i class="fa-solid fa-shirt"></i></div>
+                    <h3>Custom Apparel</h3>
+                    <p>T-shirts, sweatshirts, and hats – choose ready-made or fully tailored options.</p>
+                     <a href="apparel.html" class="learn-more">Apparel Details &rarr;</a>
                 </div>
             </div>
         </section>
 
-        <section id="benefits" class="benefits-section">
-             <h2>Engineered for Marketer Success.</h2>
-             <div class="benefits-grid">
-                 <div class="benefit-item">
-                     <div class="benefit-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
-                     <h3>Efficiency</h3>
-                     <p>Save Time, Automate Tasks.</p>
-                 </div>
-                 <div class="benefit-item">
-                     <div class="benefit-icon"><i class="fa-solid fa-bullseye"></i></div>
-                     <h3>Effectiveness</h3>
-                     <p>Data-Driven Decisions, Better ROI.</p>
-                 </div>
-                  <div class="benefit-item">
-                     <div class="benefit-icon"><i class="fa-solid fa-puzzle-piece"></i></div>
-                     <h3>Integration</h3>
-                     <p>Seamless Workflow, Connect Your Stack.</p>
-                 </div>
-                 <div class="benefit-item">
-                     <div class="benefit-icon"><i class="fa-solid fa-lightbulb"></i></div>
-                     <h3>Simplicity</h3>
-                     <p>Intuitive Design, Easy to Master.</p>
-                 </div>
-             </div>
-        </section>
-
-        <section id="contact" class="contact-section">
-            <h2>Ready to Elevate Your Marketing?</h2>
-            <p>Get in touch to request a demo or learn more about our utilities.</p>
-            <form id="contact-form" action="YOUR_FORM_ENDPOINT" method="POST"> <div class="form-group">
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="message">Message:</label>
-                    <textarea id="message" name="message" rows="4" required></textarea>
-                </div>
-                <button type="submit" class="cta-button">Send Message</button>
-            </form>
-             <p class="form-notice">Note: Form requires backend integration or a service like Netlify Forms/Formspree to function.</p>
-        </section>
+        <section id="why-us" class="why-us-section">
+            <div class="content-container fade-in-section">
+                <h2>Quality You Can Feel, Service You Can Trust</h2>
+                <p>Based in Poznan, Poland, we are dedicated to producing marketing materials that not only look great but also last. We combine quality materials with meticulous craftsmanship to ensure your brand stands out.</p>
+                <ul>
+                    <li><i class="fa-solid fa-check"></i> Durable Materials & Vibrant Prints</li>
+                    <li><i class="fa-solid fa-check"></i> Standard and Fully Custom Options</li>
+                    <li><i class="fa-solid fa-check"></i> Local Expertise, European Reach</li>
+                    <li><i class="fa-solid fa-check"></i> Personalized Service & Support</li>
+                </ul>
+                <a href="contact.html" class="cta-button secondary">Get a Quote</a>
+            </div>
+             </section>
     </main>
 
-    <footer class="main-footer">
-        <p>&copy; <span id="currentYear"></span> Marketing Manufacturer. All Rights Reserved.</p>
-        </footer>
+    <footer class="main-footer fade-in-section">
+         <p>Jakub Marszalek | Poznan, Poland</p>
+         <p>&copy; <span id="currentYear"></span> Marketing Manufacturer. All Rights Reserved.</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
