@@ -1,79 +1,102 @@
 // --- Footer Current Year ---
-document.getElementById('currentYear').textContent = new Date().getFullYear();
-
-// --- Basic Dark Mode Toggle (Example) ---
-// Uncomment this if you add the toggle button in the HTML
-/*
-const darkModeToggle = document.getElementById('darkModeToggle');
-const body = document.body;
-
-// Check local storage for theme preference
-if (localStorage.getItem('theme') === 'light') {
-    body.classList.remove('dark-mode');
-    body.classList.add('light-mode'); // Add a light-mode class if you define specific light styles
-} else {
-     body.classList.add('dark-mode'); // Default to dark
+const currentYearSpan = document.getElementById('currentYear');
+if (currentYearSpan) {
+    currentYearSpan.textContent = new Date().getFullYear();
 }
 
+// --- Smooth Scroll Animation on Load ---
+const fadeInSections = document.querySelectorAll('.fade-in-section');
 
-darkModeToggle.addEventListener('click', () => {
-    body.classList.toggle('dark-mode');
-    body.classList.toggle('light-mode'); // Toggle light mode class too
-
-    // Store preference
-    if (body.classList.contains('dark-mode')) {
-        localStorage.setItem('theme', 'dark');
-    } else {
-        localStorage.setItem('theme', 'light');
-    }
-});
-*/
-
-// --- Placeholder for Scroll Animations ---
-// You would typically use a library like Intersection Observer API or AOS (Animate On Scroll)
-// Example using Intersection Observer (conceptual):
-/*
-const animatedElements = document.querySelectorAll('.utility-card, .benefit-item'); // Add classes/selectors to animate
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
+const sectionObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry, index) => {
         if (entry.isIntersecting) {
-            entry.target.classList.add('visible'); // Add a CSS class for the animation
-            // observer.unobserve(entry.target); // Optional: stop observing once visible
+            // Add a staggered delay based on the element's order in the NodeList
+            // This creates a subtle cascading effect
+            const delay = index * 100; // Delay in milliseconds (adjust as needed)
+
+            setTimeout(() => {
+                entry.target.classList.add('visible');
+            }, delay);
+
+            // Optional: Stop observing once the element is visible
+            observer.unobserve(entry.target);
         }
     });
 }, {
+    rootMargin: '0px', // No margin
     threshold: 0.1 // Trigger when 10% of the element is visible
 });
 
-animatedElements.forEach(el => observer.observe(el));
+// Observe each section
+fadeInSections.forEach(section => {
+    sectionObserver.observe(section);
+});
+
+// Assign index for staggered delay for grid items (if needed, more complex setup)
+// A simpler approach is the cascading effect based on section order above.
+// For true grid item staggering within a section, you might need additional JS
+// after the section becomes visible. Example (conceptual):
+/*
+function handleGridItemStagger(sectionElement) {
+    const gridItems = sectionElement.querySelectorAll('.overview-item, .product-item, .benefit-item, .apparel-item');
+    gridItems.forEach((item, index) => {
+        item.style.setProperty('--item-index', index + 1); // Set CSS variable used in style.css
+    });
+}
+
+// In the observer:
+if (entry.isIntersecting) {
+    // ... existing code ...
+    handleGridItemStagger(entry.target); // Call function to set indices
+    observer.unobserve(entry.target);
+}
 */
-// You'd need corresponding CSS for the '.visible' class (e.g., opacity: 1, transform: translateY(0))
-// and initial states (e.g., opacity: 0, transform: translateY(20px)).
 
 
 // --- Contact Form Handling Placeholder ---
 const contactForm = document.getElementById('contact-form');
 
-contactForm.addEventListener('submit', (event) => {
-    event.preventDefault(); // Prevent default browser submission
+if (contactForm) {
+    // Pre-fill subject line if product is specified in URL (e.g., from product page inquiry)
+    const urlParams = new URLSearchParams(window.location.search);
+    const subjectParam = urlParams.get('subject') || urlParams.get('product');
+    if (subjectParam) {
+        const subjectInput = contactForm.querySelector('#subject');
+        if (subjectInput) {
+            subjectInput.value = subjectParam.replace(/-/g, ' '); // Replace dashes with spaces
+        }
+    }
 
-    // 1. Get form data
-    const formData = new FormData(contactForm);
-    const name = formData.get('name');
-    const email = formData.get('email');
-    const message = formData.get('message');
+    contactForm.addEventListener('submit', (event) => {
+        event.preventDefault(); // Prevent default browser submission
 
-    console.log('Form submitted (in frontend):', { name, email, message });
+        const formData = new FormData(contactForm);
+        const name = formData.get('name');
+        const email = formData.get('email');
+        const subject = formData.get('subject');
+        const message = formData.get('message');
 
-    // 2. **IMPORTANT:** Send data to your backend or form service
-    //    This part requires additional setup. Examples:
-    //    - Using fetch() to POST to a server endpoint you create.
-    //    - Setting the form's 'action' attribute to a service like Formspree or Netlify Forms
-    //      (and potentially configuring that service).
+        console.log('Form submitted (frontend):', { name, email, subject, message });
 
-    alert('Thank you for your message! (Frontend confirmation only - form submission not implemented yet)');
+        // **IMPORTANT:** Send data to your backend or form service here.
+        // Use fetch() or configure the form 'action' attribute.
 
-    // 3. Optionally clear the form or show a success message
-    // contactForm.reset();
+        alert('Thank you for your message! (Frontend confirmation only - form submission not implemented yet)');
+        // Optionally clear form: contactForm.reset();
+    });
+}
+
+// --- Active Navigation Link Highlighting ---
+const currentLocation = window.location.href;
+const navLinks = document.querySelectorAll('.main-nav ul li a');
+
+navLinks.forEach(link => {
+    // Check if the link's href is part of the current URL
+    // More robust check to handle trailing slashes or index.html
+    if (currentLocation.endsWith(link.getAttribute('href')) ||
+       (currentLocation.endsWith('/') && link.getAttribute('href') === 'index.html')) {
+        link.classList.add('active');
+    } else {
+        link.classList.remove('active'); // Ensure others are not active
+    }
 });
