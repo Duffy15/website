@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - Marketing Manufacturer</title>
+     <meta name="description" content="Skontaktuj się z Marketing Manufacturer w Poznaniu. Zapytaj o wycenę materiałów reklamowych: banery, rollupy, naklejki, odzież z nadrukiem. Adres i telefon.">
+    <title>Kontakt - Marketing Manufacturer Poznań | Zapytaj o Wycenę</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
@@ -17,58 +18,66 @@
             <div class="logo"><a href="index.html">Marketing Manufacturer</a></div>
              <ul>
                  <li><a href="index.html">Home</a></li>
-                <li><a href="products.html">Products</a></li>
-                <li><a href="apparel.html">Custom Apparel</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="contact.html" class="active">Contact</a></li>
+                <li><a href="products.html">Produkty</a></li>
+                <li><a href="apparel.html">Odzież Reklamowa</a></li>
+                <li><a href="about.html">O Nas</a></li>
+                <li><a href="contact.html" class="active">Kontakt</a></li>
             </ul>
         </nav>
     </header>
 
      <main class="page-padding">
          <section class="page-title fade-in-section">
-            <h1>Get In Touch</h1>
-            <p>We're here to help with your physical marketing needs. Contact us for quotes or questions.</p>
+            <h1>Skontaktuj się z Nami</h1>
+            <p>Jesteśmy do Twojej dyspozycji! Zapytaj o wycenę materiałów reklamowych lub doradztwo. Siedziba: Poznań.</p>
         </section>
 
         <section id="contact-details" class="contact-info-section fade-in-section">
              <div class="contact-columns">
                 <div class="contact-info">
-                    <h2>Contact Information</h2>
-                    <p><i class="fa-solid fa-user"></i> Jakub Marszalek</p>
-                    <p><i class="fa-solid fa-location-dot"></i> Poznan, Poland</p>
-                    <p><i class="fa-solid fa-envelope"></i> <a href="mailto:jakub.marszalek@example.com">jakub.marszalek@example.com</a></p> <p><i class="fa-solid fa-phone"></i> <a href="tel:+48123456789">+48 123 456 789</a></p> <p>Feel free to reach out via email or phone during business hours.</p>
+                    <h2>Dane Kontaktowe</h2>
+                    <p><i class="fa-solid fa-user"></i> <strong>Kontakt:</strong> Jakub Marszałek</p>
+                    <p><i class="fa-solid fa-location-dot"></i> <strong>Siedziba / Produkcja:</strong> Poznań, Wielkopolska, Polska <br><small>(Dokładny adres udostępniamy po umówieniu spotkania)</small></p>
+                    <p><i class="fa-solid fa-envelope"></i> <strong>Email:</strong> <a href="mailto:biuro@marketingmanufacturer.pl">biuro@marketingmanufacturer.pl</a></p> <p><i class="fa-solid fa-phone"></i> <strong>Telefon:</strong> <a href="tel:+48600111222">+48 600 111 222</a></p> <p><i class="fa-solid fa-clock"></i> <strong>Godziny pracy:</strong> Poniedziałek - Piątek, 8:00 - 16:00</p>
+
+                    <h3 style="margin-top: 2rem;">Potrzebujesz wyceny?</h3>
+                    <p>Opisz swoje potrzeby w formularzu obok lub wyślij zapytanie mailowo. Podaj jak najwięcej szczegółów (rodzaj produktu, wymiary, nakład, projekt), abyśmy mogli przygotować precyzyjną ofertę.</p>
+
                     </div>
 
                 <div class="contact-form-container">
-                    <h2>Send Us a Message</h2>
+                    <h2>Wyślij Zapytanie Online</h2>
                      <form id="contact-form" action="YOUR_FORM_ENDPOINT" method="POST"> <div class="form-group">
-                            <label for="name">Name:</label>
+                            <label for="name">Imię i Nazwisko / Firma:</label>
                             <input type="text" id="name" name="name" required>
                         </div>
                         <div class="form-group">
-                            <label for="email">Email:</label>
+                            <label for="email">Adres Email:</label>
                             <input type="email" id="email" name="email" required>
                         </div>
                          <div class="form-group">
-                            <label for="subject">Subject (Optional):</label>
-                            <input type="text" id="subject" name="subject">
+                            <label for="phone">Telefon Kontaktowy (Opcjonalnie):</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                         <div class="form-group">
+                            <label for="subject">Temat Zapytania:</label>
+                            <input type="text" id="subject" name="subject" placeholder="np. Wycena banerów, Zapytanie o odzież" required>
                         </div>
                         <div class="form-group">
-                            <label for="message">Message:</label>
-                            <textarea id="message" name="message" rows="5" required></textarea>
+                            <label for="message">Treść Wiadomości:</label>
+                            <textarea id="message" name="message" rows="6" placeholder="Opisz szczegóły zamówienia: rodzaj produktu, ilość, wymiary, termin realizacji, załącz plik jeśli posiadasz projekt..." required></textarea>
                         </div>
-                        <button type="submit" class="cta-button">Send Message</button>
+                         <button type="submit" class="cta-button">Wyślij Zapytanie</button>
                     </form>
-                    <p class="form-notice">Note: Form requires backend integration or a service like Netlify Forms/Formspree to function.</p>
+                    <p class="form-notice">Odpowiadamy zazwyczaj w ciągu 1 dnia roboczego. Formularz wymaga integracji backendowej lub usługi typu Netlify Forms/Formspree do poprawnego działania.</p>
                 </div>
             </div>
         </section>
     </main>
 
     <footer class="main-footer fade-in-section">
-         <p>Jakub Marszalek | Poznan, Poland</p>
-         <p>&copy; <span id="currentYear"></span> Marketing Manufacturer. All Rights Reserved.</p>
+        <p>Jakub Marszałek | Marketing Manufacturer | Materiały Reklamowe Produkcja | Poznań, Wielkopolska</p>
+         <p>&copy; <span id="currentYear"></span> Marketing Manufacturer. Wszelkie prawa zastrzeżone.</p>
     </footer>
 
     <script src="script.js"></script>
