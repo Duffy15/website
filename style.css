@@ -1,220 +1,39 @@
-/* Add this to your body styles */
-body {
-    font-family: var(--font-body);
-    background: var(--bg-gradient);
-    color: var(--text-color);
-    line-height: 1.7;
-    overflow-x: hidden;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    /* padding-top: 75px;  ADJUST THIS VALUE based on your header's actual height */
-                      /* This pushes all content down below the fixed header */
-}
+/* ======================================== */
+/* style.css                  */
+/* ======================================== */
 
-/* Modify main-header styles (optional, if needed for background consistency) */
-.main-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    background-color: var(--nav-bg);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-
-/* UPDATE .main-nav styles */
-.main-nav {
-    display: flex;
-    justify-content: space-between; /* Positions logo left, nav links right */
-    align-items: center;
-    padding: 15px 5%; /* Keep padding */
-    max-width: 1200px; /* Keep max width */
-    margin: 0 auto; /* Keep centered */
-    height: 75px; /* Explicitly set height - adjust padding-top on body accordingly */
-}
-
-/* UPDATE .main-nav ul styles (make links smaller/adjust spacing) */
-.main-nav ul {
-    list-style: none;
-    display: flex;
-    margin: 0; /* Remove default margin */
-    padding: 0; /* Remove default padding */
-}
-
-/* UPDATE .main-nav ul li styles (adjust spacing) */
-.main-nav ul li {
-    margin-left: 25px; /* Adjust spacing between nav items if needed */
-}
-
-/* UPDATE .main-nav ul li a styles (adjust font size) */
-.main-nav ul li a {
-    color: var(--nav-text);
-    font-weight: 500; /* Slightly less bold maybe? */
-    font-size: 0.95rem; /* Make font slightly smaller */
-    padding-bottom: 5px;
-    border-bottom: 2px solid transparent;
-    transition: color var(--transition-speed), border-color var(--transition-speed);
-    white-space: nowrap; /* Prevent links from wrapping */
-}
-
-/* Keep hover/active styles */
-.main-nav ul li a:hover, .main-nav ul li a:focus, .main-nav ul li a.active {
-    color: var(--color-accent);
-    border-bottom-color: var(--color-accent);
-}
-
-/* Remove top padding from .hero-section if body padding is added */
-.hero-section {
-    min-height: 80vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    /* padding-top: 120px; <-- REMOVE or adjust if using body padding */
-    padding-bottom: 60px;
-    border-bottom: none;
-}
-
-/* Remove top padding from .page-padding if body padding is added */
-.page-padding {
-     /* padding-top: 100px; <-- REMOVE or adjust if using body padding */
-}
-/* --- Hide Header on Scroll --- */
-.main-header {
-    /* ... keep existing styles like position:fixed, background, etc. ... */
-    transition: transform 0.4s ease-out; /* Smooth hide/show */
-}
-
-.header-hidden {
-    transform: translateY(-100%); /* Move header up */
-}
-
-/* --- Hamburger Menu --- */
-.hamburger-menu {
-    display: none; /* Hidden by default on desktop */
-    background: none;
-    border: none;
-    color: var(--nav-text); /* Match nav text color */
-    font-size: 1.8rem; /* Adjust size */
-    cursor: pointer;
-    padding: 5px;
-    z-index: 1050; /* Above header */
-    transition: color var(--transition-speed);
-    margin-left: 15px; /* Space from other nav items if needed */
-}
-.hamburger-menu:hover {
-    color: var(--color-accent);
-}
-/* Show hamburger when header is hidden on desktop OR always on mobile */
-.header-hidden .hamburger-menu {
-    display: block; /* Show when header hides */
-}
-
-
-/* --- Mobile Navigation Overlay --- */
-.mobile-nav-overlay {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 300px; /* Adjust width */
-    max-width: 80%;
-    height: 100vh;
-    background-color: var(--color-bg-dark-end); /* Use a solid background */
-    z-index: 1100; /* Above everything */
-    transform: translateX(100%); /* Start off-screen */
-    transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1); /* Smooth slide */
-    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
-    padding: 80px 30px 30px; /* Padding top to avoid close button overlap */
-    overflow-y: auto; /* Allow scrolling if content overflows */
-    display: flex;
-    flex-direction: column;
-}
-
-.mobile-nav-overlay.overlay-active {
-    transform: translateX(0); /* Slide in */
-}
-
-.close-nav {
-    position: absolute;
-    top: 20px;
-    right: 25px;
-    background: none;
-    border: none;
-    color: var(--color-text-light);
-    font-size: 2.5rem;
-    font-weight: lighter;
-    cursor: pointer;
-    line-height: 1;
-}
-.close-nav:hover {
-     color: var(--color-accent);
-}
-
-.overlay-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-}
-
-.overlay-nav ul li {
+/* --- Basic Reset & Root Variables --- */
+* {
     margin: 0;
     padding: 0;
-    border-bottom: 1px solid var(--section-separator-color);
-}
- .overlay-nav ul li:last-child {
-     border-bottom: none;
- }
-
-.overlay-nav ul li a {
-    display: block;
-    padding: 18px 0;
-    color: var(--color-text-light);
-    text-decoration: none;
-    font-size: 1.2rem;
-    font-weight: 600;
-    transition: color var(--transition-speed), background-color var(--transition-speed);
+    box-sizing: border-box;
 }
 
-.overlay-nav ul li a:hover,
-.overlay-nav ul li a.active { /* Highlight active link */
-    color: var(--color-accent);
-    /* background-color: rgba(var(--color-accent-rgb), 0.1); Optional hover bg */
-}
+:root {
+    /* Color Palette (Dark Mode Default) */
+    --color-primary: #3a7bd5;  /* Blueish */
+    --color-secondary: #3a60d5; /* Slightly darker blue */
+    --color-accent: #e94560;   /* Accent Pink/Red - Used for highlights, buttons */
+    --color-text-light: #f0f0f0;
+    --color-text-dark: #212529;
+    --color-heading-light: #ffffff;
+    --color-bg-light-start: #eef2f3;
+    --color-bg-light-end: #ffffff;
+    --color-bg-dark-start: #1a2940;  /* Dark Blue */
+    --color-bg-dark-end: #121c2a;    /* Deeper Blue */
+    --color-card-bg-dark: rgba(40, 55, 80, 0.6);
+    --glass-blur: 8px;
 
-/* Prevent body scroll when overlay is open */
-body.overlay-open {
-    overflow: hidden;
-}
-
-
-/* --- Responsiveness for Nav --- */
-@media (max-width: 992px) { /* Adjust breakpoint as needed */
-    .main-nav ul {
-        display: none; /* Hide standard horizontal nav on mobile */
-    }
-    .hamburger-menu {
-        display: block; /* Show hamburger always on mobile */
-        /* Ensure it's visible even if header isn't hidden */
-    }
-     .header-hidden .hamburger-menu {
-         /* Already displayed by default on mobile, no change needed */
-     }
-}
-
-/* Adjust existing mobile styles if necessary */
-@media (max-width: 768px) {
-     /* Potentially adjust hamburger size or position further */
-     .main-nav {
-         /* Maybe remove flex-direction: column from previous attempts */
-         /* Ensure space-between still works or adjust as needed */
-     }
-     .mobile-nav-overlay {
-         width: 85%; /* Make overlay wider on smaller screens */
-     }
-}
+    /* --- Active Theme (Dark Mode) --- */
+    --bg-gradient: linear-gradient(180deg, var(--color-bg-dark-start) 0%, var(--color-bg-dark-end) 100%);
+    --text-color: var(--color-text-light);
+    --heading-color: var(--color-heading-light);
+    --card-bg-color: var(--color-card-bg-dark);
+    --nav-bg: rgba(26, 41, 64, 0.85); /* Slightly more opaque nav */
+    --nav-text: var(--color-heading-light);
+    --footer-bg: var(--color-bg-dark-end);
+    --button-tertiary-bg: rgba(255, 255, 255, 0.1);
+    --button-tertiary-text: var(--color-text-light);
+    --button-tertiary-hover-bg: rgba(255, 255, 255, 0.2);
+    --section-separator-color: rgba(255, 255, 255, 0.1); /* Subtle separator */
+    --overlay-bg: var(--color-bg-dark-
