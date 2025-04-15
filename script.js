@@ -48,6 +48,28 @@ document.addEventListener('DOMContentLoaded', () => { // Ensure DOM is loaded
          console.error("Could not find .main-header element");
     }
 
+    // --- Ambient Background Light Effect ---
+    const root = document.documentElement;
+
+    // Check if the device supports hover (likely not a touch device)
+    // This prevents the effect from just staying static on mobile
+    const prefersHover = window.matchMedia('(hover: hover)').matches;
+
+    if (prefersHover) { // Only add listener if hover is supported
+        window.addEventListener('mousemove', (e) => {
+            // Update CSS variables based on mouse position
+            // Using requestAnimationFrame can potentially make it smoother
+            // but direct update is often fine.
+            root.style.setProperty('--mouse-x', e.clientX + 'px');
+            root.style.setProperty('--mouse-y', e.clientY + 'px');
+
+             // Optional: Console log to check values (remove for production)
+             // console.log(`Mouse X: ${e.clientX}, Mouse Y: ${e.clientY}`);
+        });
+        console.log('Ambient light effect initialized.'); // Confirm setup
+    } else {
+        console.log('Ambient light effect skipped (device likely touch-only).');
+    }
 
     // --- Hamburger Menu Toggle ---
     if (hamburgerBtn && mobileNavOverlay) { // Check if elements exist
