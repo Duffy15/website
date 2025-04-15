@@ -116,16 +116,24 @@ section:last-of-type {
      border-bottom: none; /* No border on last section before footer */
 }
 
-/* Page padding for subpages - now just sets top margin essentially */
-.page-padding {
-    /* No padding-top needed here, handled by section padding */
+/* Add top padding to the first content section on ALL pages */
+/* Header height is 75px, let's add more padding for space */
+/* NOTE: This overrides the initial overlap design */
+
+.hero-section { /* For index.html */
+    /* ... keep existing hero styles like min-height, display, align-items etc ... */
+    padding-top: 95px; /* Add padding - ADJUST if header height changes */
+    margin-top: 0; /* REMOVE margin-top if you added it previously */
 }
 
-.page-title {
-    text-align: center;
-    padding-bottom: 40px;
-    border-bottom: none;
-     /* REMOVED explicit padding-top here - relies on standard section padding */
+.page-title { /* For subpages like products.html, contact.html etc. */
+   /* ... keep existing page-title styles like text-align, padding-bottom etc ... */
+    padding-top: 95px; /* Add padding - ADJUST if header height changes */
+}
+
+/* Adjust main padding for subpages if needed */
+.page-padding {
+     /* Ensure no conflicting padding-top here */
 }
 .page-title h1 { margin-bottom: 0.5rem; }
 
