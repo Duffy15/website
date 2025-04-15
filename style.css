@@ -67,8 +67,9 @@ body {
 
     /* Apply background directly - COMMENT REMOVED */
 /* Inside body rule */
-background: radial-gradient(circle, #007bff, black); /* Simple gradient blue to black */
-background-attachment: fixed; /* Keep fixed attachment */
+background: lightblue, black; /* Light blue layer ON TOP of black layer */
+background-repeat: no-repeat; /* Add this */
+background-attachment: fixed; /* Keep this */
 
 
     /* Layout properties for wrapper structure */
