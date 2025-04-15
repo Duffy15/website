@@ -36,7 +36,7 @@
     --button-tertiary-text: var(--color-text-light); /* Uses light text color */
     --button-tertiary-hover-bg: rgba(255, 255, 255, 0.2);
     --section-separator-color: rgba(255, 255, 255, 0.1);
-    --overlay-bg: #152033;
+    --overlay-bg: #000000; 
     --color-accent: var(--color-primary);
 
     /* Fonts */
@@ -61,47 +61,55 @@ html {
     scroll-behavior: smooth;
 }
 
+/* Find your existing body rule */
 body {
     font-family: var(--font-body);
-    /* background: var(--bg-gradient); <-- Removed this */
-    background-color: #000000; /* Set solid black background */
+    /* background-color: #000000; <-- REMOVE this line */
     color: var(--text-color);
     line-height: 1.7;
     overflow-x: hidden;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    position: relative; /* Needed for pseudo-element positioning */
-    z-index: 0; /* Ensure body is below pseudo-element */
+    position: relative;
+    z-index: 0;
+    /* Optional: Ensure no default background if needed */
+    background: none; /* Or transparent */
 }
 
 /* --- START: Replace body::before rule --- */
 /* Pseudo-element for the background lights */
 body::before {
     content: "";
-    position: fixed;
+    position: fixed; /* Cover viewport */
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: -1;
-    /* Define multiple fixed radial gradients */
-    /* Adjust positions (e.g., 0% 0%, 100% 0%, 0% 100%, 100% 100%) */
-    /* Adjust sizes (e.g., 40vw, 50vmax) */
-    /* Adjust colors */
+    z-index: -1; /* Place behind all content */
+
+    /* Define multiple background layers, comma-separated */
+    /* Color layer first, then gradients */
     background:
-        /* Light 1 (Top Left Blue) */
-        radial-gradient(circle at 10% 10%, var(--light-color-blue) 0%, transparent 40vmax) 0 0 / 100% 100% no-repeat,
-        /* Light 2 (Bottom Right Pink) */
-        radial-gradient(circle at 90% 90%, var(--light-color-pink) 0%, transparent 40vmax) 0 0 / 100% 100% no-repeat,
-        /* Light 3 (Top Right Pink/Blue Mix?) */
-        radial-gradient(circle at 90% 10%, var(--light-color-pink) 0%, var(--light-color-blue) 5%, transparent 35vmax) 0 0 / 100% 100% no-repeat;
+        /* Layer 1: Solid Black Background */
+        #000000,
+        /* Layer 2: Light 1 (Top Left Blue) */
+        radial-gradient(circle at 10% 10%, var(--light-color-blue) 0%, transparent 40vmax),
+        /* Layer 3: Light 2 (Bottom Right Pink) */
+        radial-gradient(circle at 90% 90%, var(--light-color-pink) 0%, transparent 40vmax),
+        /* Layer 4: Light 3 (Top Right Mix) */
+        radial-gradient(circle at 90% 10%, var(--light-color-pink) 0%, var(--light-color-blue) 5%, transparent 35vmax);
 
-    /* Set opacity based on CSS variables (controlled by JS) */
-    opacity: 0.4; /* Base opacity - maybe control individual lights later */
+    /* Control how background layers stack (optional but good practice) */
+    background-repeat: no-repeat;
+    background-position: center center; /* Center the color layer */
+    /* Set positions for gradients if needed, though 'at X% Y%' handles it */
 
-    /* Smooth transition for opacity changes */
-    transition: opacity 3s ease-in-out; /* Slow fade */
+    /* --- TEMPORARY TEST --- */
+    opacity: 0.4; /* Keep fixed visible opacity for testing */
+    /* --- Comment out JS variable and transition --- */
+    /* opacity: var(--light1-opacity); */
+    /* transition: opacity 3s ease-in-out; */
 
     pointer-events: none;
 }
