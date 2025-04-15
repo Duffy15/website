@@ -78,45 +78,22 @@ body {
     background: transparent; /* Body itself is transparent */
 }
 
-/* --- START: Replace body::before rule --- */
-/* Pseudo-element for the background lights */
+/* --- TEMPORARY TEST - Replace entire body::before rule --- */
 body::before {
     content: "";
-    position: fixed; /* Cover viewport */
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: -1; /* Place behind all content */
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: -1; /* Behind body content */
 
-    /* Define multiple background layers, comma-separated */
-    /* Color layer first, then gradients */
+    /* Test: Black background + ONE simple, bright, centered gradient */
     background:
-        /* Layer 1: Solid Black Background */
-        #000000,
-        /* Layer 2: Light 1 (Top Left Blue) */
-        radial-gradient(circle at 10% 10%, var(--light-color-blue) 0%, transparent 40vmax),
-        /* Layer 3: Light 2 (Bottom Right Pink) */
-        radial-gradient(circle at 90% 90%, var(--light-color-pink) 0%, transparent 40vmax),
-        /* Layer 4: Light 3 (Top Right Mix) */
-        radial-gradient(circle at 90% 10%, var(--light-color-pink) 0%, var(--light-color-blue) 5%, transparent 35vmax);
+        #000000, /* Black layer */
+        radial-gradient(circle at 50% 50%, rgba(0, 123, 255, 1) 0%, transparent 50%); /* BRIGHT blue (100% opacity), centered, simple % size */
 
-    /* Control how background layers stack */
     background-repeat: no-repeat;
-    /*background-position: center center; /* Center the color layer */
-    /* Set positions for gradients if needed, though 'at X% Y%' handles it */
-
-    /* --- REMOVE THIS LINE --- */
-    /* opacity: 0.4; */ /* REMOVED: This was making the background semi-transparent */
-    /* --- END REMOVAL --- */
-
-    /* --- Comment out JS variable and transition (Keep for later JS implementation) --- */
-    /* opacity: var(--light1-opacity); */
-    /* transition: opacity 3s ease-in-out; */
-
     pointer-events: none;
 }
-/* --- END: Replace body::before rule --- */
+/* --- END TEMPORARY TEST --- */
 
 /* Prevent body scroll when overlay is open */
 body.overlay-open {
