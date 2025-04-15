@@ -9,24 +9,31 @@
     box-sizing: border-box;
 }
 
-/* --- START: Updated :root Block --- */
+/* --- START: Re-Verified :root Block --- */
 :root {
     /* Color Palette */
-    --color-primary: #007bff;         /* Electric Blue */
-    --color-secondary-accent: #e94560;/* Pink/Red */
-    --color-text-light: #f0f0f0;
-    --color-heading-light: #ffffff;
-    /* Light Colors for ambient effect (slightly lower opacity) */
-    --light-color-blue: rgba(0, 123, 255, 0.1); /* Blue glow */
-    --light-color-pink: rgba(233, 69, 96, 0.1); /* Pink glow */
-    /* Keep other color variables */
+    --color-primary: #007bff;
+    --color-secondary-accent: #e94560;
+    /* --- >>> CHECK THESE LINES <<< --- */
+    --color-text-light: #f0f0f0;      /* Should be light grey for body text */
+    --color-heading-light: #ffffff;   /* Should be white for headings */
+    /* --- >>> AND THESE LINES <<< --- */
+    --text-color: var(--color-text-light);     /* Points body color to light grey */
+    --heading-color: var(--color-heading-light); /* Points heading color to white */
+    --nav-text: var(--color-heading-light);     /* Points nav/logo color to white */
+    /* --- >>> AND THIS ONE <<< --- */
+    --light1-opacity: 0; /* Opacity variable for ambient light (controlled by JS) */
+
+    /* Light Colors for ambient effect */
+    --light-color-blue: rgba(0, 123, 255, 0.1);
+    --light-color-pink: rgba(233, 69, 96, 0.1);
+    /* Other Colors */
     --color-card-bg-dark: rgba(31, 43, 62, 0.65);
     --glass-blur: 8px;
-    --nav-bg: rgba(0, 0, 0, 0.85); /* UPDATED: Black transparent */
-    --nav-text: var(--color-heading-light);
+    --nav-bg: rgba(0, 0, 0, 0.85);
     --footer-bg: #000000;
     --button-tertiary-bg: rgba(255, 255, 255, 0.1);
-    --button-tertiary-text: var(--color-text-light);
+    --button-tertiary-text: var(--color-text-light); /* Uses light text color */
     --button-tertiary-hover-bg: rgba(255, 255, 255, 0.2);
     --section-separator-color: rgba(255, 255, 255, 0.1);
     --overlay-bg: #152033;
@@ -42,18 +49,13 @@
     --header-transition-speed: 0.4s ease-out;
     --overlay-transition-speed: 0.5s cubic-bezier(0.77, 0, 0.175, 1);
 
-    /* Variables for FIXED ambient lights (opacity set by JS) */
-    --light1-opacity: 0;
-    --light2-opacity: 0;
-    --light3-opacity: 0;
-
-    /* Variables for interactive logo (set by JS) */
+    /* Variables for interactive logo */
     --logo-mouse-x: 50%;
     --logo-mouse-y: 50%;
-    --logo-light-color: var(--light-color-blue); /* Default start color */
+    --logo-light-color: var(--light-color-blue);
 
 }
-/* --- END: Updated :root Block --- */
+/* --- END: Re-Verified :root Block --- */
 
 html {
     scroll-behavior: smooth;
@@ -96,7 +98,7 @@ body::before {
         radial-gradient(circle at 90% 10%, var(--light-color-pink) 0%, var(--light-color-blue) 5%, transparent 35vmax) 0 0 / 100% 100% no-repeat;
 
     /* Set opacity based on CSS variables (controlled by JS) */
-    opacity: var(--light1-opacity); /* Base opacity - maybe control individual lights later */
+    opacity: 0.4; /* Base opacity - maybe control individual lights later */
 
     /* Smooth transition for opacity changes */
     transition: opacity 3s ease-in-out; /* Slow fade */
