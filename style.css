@@ -59,42 +59,60 @@ body {
     color: var(--text-color);
     line-height: 1.7;
     overflow-x: hidden;
-    background: transparent !important; /* IMPORTANT: Force transparent */
+    background: transparent !important; /* Keep transparent */
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    position: relative; /* Needed for z-index stacking */
-    z-index: 0;         /* Base stacking context */
+    position: relative;
+    z-index: 0;
 }
 
-/* --- Background Effect using Dedicated Div --- */
+/* --- Background Div (Solid Black Only) --- */
 .background-lights {
     position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    z-index: -1; /* Place BEHIND content */
+    inset: 0; /* Shortcut for top/left/right/bottom: 0 */
+    z-index: -1;
     pointer-events: none;
+    background-color: #000000; /* Apply ONLY solid black here */
+    overflow: hidden; /* Prevent pseudo-elements spilling if needed */
+}
 
-    /* The multi-layer background definition */
-    background:
-        #000000, 
-        radial-gradient(circle at 10% 10%, var(--light-color-blue) 0%, transparent 40vmax),
-        radial-gradient(circle at 90% 90%, var(--light-color-pink) 0%, transparent 40vmax),
-        radial-gradient(circle at 90% 10%, var(--light-color-pink) 0%, var(--light-color-blue) 5%, transparent 35vmax);
+/* --- Lights using Pseudo-elements --- */
+.background-lights::before,
+.background-lights::after {
+    content: "";
+    position: absolute;
+    inset: 0; /* Cover the parent div */
+    pointer-events: none;
     background-repeat: no-repeat;
-    /* background-attachment no longer needed (fixed pos handles it) */
-    /* background-position no longer needed */
+}
+
+/* Light 1 (Blue TL) + Light 3 (Mix TR) */
+.background-lights::before {
+    background:
+        /* Light 1 */
+        radial-gradient(circle at 10% 10%, var(--light-color-blue) 0%, transparent 40vmax),
+        /* Light 3 */
+        radial-gradient(circle at 90% 10%, var(--light-color-pink) 0%, var(--light-color-blue) 5%, transparent 35vmax);
+}
+
+/* Light 2 (Pink BR) */
+.background-lights::after {
+    background:
+        /* Light 2 */
+        radial-gradient(circle at 90% 90%, var(--light-color-pink) 0%, transparent 40vmax);
 }
 
 /* --- Page Content Wrapper --- */
 .page-content-wrapper {
-    position: relative; /* Create stacking context above background */
-    z-index: 1;         /* Sit on top of background */
+    position: relative;
+    z-index: 1; /* Sit on top of background */
     width: 100%;
-    background-color: transparent; /* Ensure wrapper is transparent */
+    background-color: transparent;
     display: flex;
     flex-direction: column;
-    flex-grow: 1;       /* Takes up space in body flex */
-    min-height: 100vh;  /* Ensures footer pushed down */
+    flex-grow: 1;
+    min-height: 100vh;
 }
 
 /* Prevent body scroll when mobile overlay is open */
