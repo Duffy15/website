@@ -42,9 +42,9 @@
     --color-accent: var(--color-primary); /* Using the Electric Blue as main accent */
 
 
-    /* Fonts */
-    --font-heading: 'Poppins', sans-serif;
-    --font-body: 'Inter', sans-serif;
+    /* --- Fonts --- */
+    --font-heading: 'Poppins', sans-serif; /* Keep as Poppins */
+    --font-body: 'Poppins', sans-serif;    /* CHANGE this from Inter to Poppins */
 
     /* Transitions & Animations */
     --transition-speed: 0.4s ease;
