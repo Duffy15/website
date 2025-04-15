@@ -113,29 +113,38 @@ document.addEventListener('DOMContentLoaded', () => { // Ensure DOM is loaded
     }
 
 
-    /* --- START: Add NEW Ambient Background Logic --- */
+/* --- START: Modified Ambient Background Logic --- */
 // --- Ambient Background Light Effect (Timed Opacity Pulse) ---
-const rootStyle = document.documentElement.style;
-let currentLight = 1; // Start with light 1 potentially visible
+const rootStyle = document.documentElement.style; // Get root style object
 
-// Set initial opacity immediately
-rootStyle.setProperty('--light1-opacity', '0.3'); // Start with slight visibility
-rootStyle.setProperty('--light2-opacity', '0');
-rootStyle.setProperty('--light3-opacity', '0');
+// Define the opacity range and timing
+const minOpacity = 0.3; // Minimum visible opacity for the lights
+const maxOpacity = 0.8; // Maximum visible opacity for the lights
+const fadeInterval = 7000; // Time in milliseconds (7 seconds)
 
-// This is a very basic example: Fade one overall opacity variable in/out.
-// Controlling individual lights (--light1-opacity, --light2-opacity etc.)
-// would require more complex logic to pick which one fades in/out.
-let lightVisible = true;
+let lightsFadingOut = true; // Start by fading out from initial full opacity
+
+// Set initial opacity using the new variable name
+// (CSS now defaults to 1, so JS will start the fade)
+// rootStyle.setProperty('--current-light-opacity', maxOpacity.toFixed(2)); // Optional: Start at max
+
+console.log('Initializing timed ambient light effect...');
+
 setInterval(() => {
-    const newOpacity = lightVisible ? 0.1 : 0.4; // Fade between low and slightly higher visibility
-    console.log('Setting ambient light opacity to:', newOpacity); // Debug Log
-    rootStyle.setProperty('--light1-opacity', newOpacity.toFixed(2)); // Using light1 for now
-    lightVisible = !lightVisible;
-}, 7000); // Change opacity every 7 seconds (adjust timing)
+    // Determine target opacity
+    const targetOpacity = lightsFadingOut ? minOpacity : maxOpacity;
 
-console.log('Timed ambient light effect initialized.');
-/* --- END: Add NEW Ambient Background Logic --- */
+    console.log(`Setting ambient light opacity to: ${targetOpacity.toFixed(2)}`); // Debug Log
+
+    // Update the single CSS variable controlling both pseudo-elements
+    rootStyle.setProperty('--current-light-opacity', targetOpacity.toFixed(2));
+
+    // Toggle the direction for the next interval
+    lightsFadingOut = !lightsFadingOut;
+
+}, fadeInterval); // Change opacity every interval
+
+/* --- END: Modified Ambient Background Logic --- */
 
 
 /* --- START: Add NEW Interactive Logo Backlight Logic --- */
