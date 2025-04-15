@@ -1,5 +1,5 @@
 /* ======================================== */
-/* style.css (Updated with Source Sans Pro & Background Fix) */
+/* style.css (New Approach: Body Background + Content Wrapper) */
 /* ======================================== */
 
 /* --- Basic Reset & Root Variables --- */
@@ -9,31 +9,29 @@
     box-sizing: border-box;
 }
 
-/* --- START: Re-Verified :root Block --- */
+/* --- START: Root Variables (Unchanged) --- */
 :root {
     /* Color Palette */
     --color-primary: #007bff;
     --color-secondary-accent: #e94560;
-    /* --- >>> CHECK THESE LINES <<< --- */
-    --color-text-light: #f0f0f0;      /* Should be light grey for body text */
-    --color-heading-light: #ffffff;   /* Should be white for headings */
-    /* --- >>> AND THESE LINES <<< --- */
-    --text-color: var(--color-text-light);      /* Points body color to light grey */
-    --heading-color: var(--color-heading-light); /* Points heading color to white */
-    --nav-text: var(--color-heading-light);      /* Points nav/logo color to white */
-    /* --- >>> AND THIS ONE <<< --- */
-    --light1-opacity: 0; /* Opacity variable for ambient light (controlled by JS) */
+    --color-text-light: #f0f0f0;
+    --color-heading-light: #ffffff;
+    --text-color: var(--color-text-light);
+    --heading-color: var(--color-heading-light);
+    --nav-text: var(--color-heading-light);
+    --light1-opacity: 0;
 
-    /* Light Colors for ambient effect */
+    /* Light Colors for ambient effect (Using subtle opacity) */
     --light-color-blue: rgba(0, 123, 255, 0.15);
     --light-color-pink: rgba(233, 69, 96, 0.15);
+
     /* Other Colors */
     --color-card-bg-dark: rgba(31, 43, 62, 0.65);
     --glass-blur: 8px;
     --nav-bg: rgba(0, 0, 0, 0.85);
     --footer-bg: #000000;
     --button-tertiary-bg: rgba(255, 255, 255, 0.1);
-    --button-tertiary-text: var(--color-text-light); /* Uses light text color */
+    --button-tertiary-text: var(--color-text-light);
     --button-tertiary-hover-bg: rgba(255, 255, 255, 0.2);
     --section-separator-color: rgba(255, 255, 255, 0.1);
     --overlay-bg: #000000;
@@ -53,83 +51,76 @@
     --logo-mouse-x: 50%;
     --logo-mouse-y: 50%;
     --logo-light-color: var(--light-color-blue);
-
 }
-/* --- END: Re-Verified :root Block --- */
+/* --- END: Root Variables --- */
 
-/* --- Background Effect using Dedicated Div --- */
-.background-lights {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: -1; /* Place behind content */
-    pointer-events: none; /* Prevent interaction blocking */
+html {
+    scroll-behavior: smooth;
+    /* Removed background color - Body handles it now */
+}
 
-    /* Use your ORIGINAL multi-gradient background */
+/* --- Body Styling (Now includes background) --- */
+body {
+    font-family: var(--font-body);
+    color: var(--text-color);
+    line-height: 1.7;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    /* Apply background directly */
     background:
         #000000, /* Solid Black Layer */
         radial-gradient(circle at 10% 10%, var(--light-color-blue) 0%, transparent 40vmax),
         radial-gradient(circle at 90% 90%, var(--light-color-pink) 0%, transparent 40vmax),
         radial-gradient(circle at 90% 10%, var(--light-color-pink) 0%, var(--light-color-blue) 5%, transparent 35vmax);
     background-repeat: no-repeat;
-    /* background-position is not needed here */
+    background-attachment: fixed; /* Make body background fixed */
 
-    /* --- Optional: Link to JS opacity control (keep commented for now) --- */
-    /* opacity: var(--light1-opacity, 1); */ /* Default to 1 if variable not set */
-    /* transition: opacity 3s ease-in-out; */
-}
-
-html {
-    scroll-behavior: smooth;
-    background-color: #000000; /* Ensure base background is black */
-}
-
-/* Find your existing body rule */
-body {
-    font-family: var(--font-body);
-    /* background-color: #000000; <-- REMOVE this line */
-    color: var(--text-color); /* Uses light text color */
-    line-height: 1.7;
-    overflow-x: hidden;
+    /* --- Layout Handling moved to wrapper --- */
+    /* We still need body to have height for the fixed background */
     min-height: 100vh;
+}
+
+/* --- REMOVED .background-lights rule --- */
+
+/* --- NEW: Page Content Wrapper --- */
+.page-content-wrapper {
+    position: relative; /* Create stacking context above body background */
+    z-index: 1;         /* Sit on top of body background */
+    width: 100%;        /* Take full width */
+    min-height: 100vh; /* Ensure it takes at least full viewport height */
+    background-color: transparent; /* Ensure it's transparent */
+
+    /* Use Flexbox to manage header/main/footer layout */
     display: flex;
     flex-direction: column;
-    position: relative;
-    z-index: 0;
-    /* Optional: Ensure no default background if needed */
-    background: transparent; /* Body itself is transparent */
 }
-
-
 
 /* Prevent body scroll when overlay is open */
 body.overlay-open {
-    overflow: hidden;
+    overflow: hidden; /* This might need adjustment if wrapper scrolls */
 }
 
+/* Ensure main takes remaining space within the wrapper */
 main {
     flex-grow: 1;
+    /* No position/z-index needed here anymore */
 }
 
 /* --- Typography & Common Elements --- */
 h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-heading); /* Uses Source Sans Pro via variable */
+    font-family: var(--font-heading);
     color: var(--heading-color);
     margin-bottom: 1rem;
     line-height: 1.3;
-    font-weight: 600; /* Adjust default heading weight if needed */
+    font-weight: 600;
 }
-h1 { font-size: clamp(2.4rem, 6vw, 3.8rem); font-weight: 700; } /* Bolder H1 */
+h1 { font-size: clamp(2.4rem, 6vw, 3.8rem); font-weight: 700; }
 h2 { font-size: clamp(1.8rem, 5vw, 2.8rem); text-align: center; margin-bottom: 2.5rem; font-weight: 600; }
 h3 { font-size: 1.5rem; margin-bottom: 0.75rem; font-weight: 600;}
 h4 { font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--color-accent); font-weight: 600;}
 
-p { margin-bottom: 1.2rem; max-width: 70ch; font-weight: 400; } /* Ensure body uses regular weight */
+p { margin-bottom: 1.2rem; max-width: 70ch; font-weight: 400; }
 section p { margin-bottom: 1rem; }
 
-/* Center specific paragraph blocks that have max-width */
 .page-title p,
 .cta-section p,
 .hero-content p,
@@ -151,557 +142,284 @@ img {
     display: block;
 }
 
+/* Sections are inside the wrapper, no specific z-index needed relative to body anymore */
 section {
     padding: 60px 5%;
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
     border-bottom: 1px solid var(--section-separator-color);
-    position: relative; /* Ensures sections stack above body::before */
-    z-index: 1;         /* Ensures sections stack above body::before */
+    /* position: relative; */ /* Not needed unless children are positioned */
+    /* z-index: 1; */         /* Not needed relative to body */
 }
 section:last-of-type {
-     border-bottom: none;
+    border-bottom: none;
 }
 
-.page-padding {
-    /* Styles for main content area on subpages if needed, no padding-top */
-}
+.page-padding { /* Keep as is */ }
 
 .page-title {
     text-align: center;
     padding-bottom: 40px;
     border-bottom: none;
-    /* Using standard section padding for top offset */
 }
-/* Center specific paragraph blocks that have max-width */
-.page-title p,
-.cta-section p {
+.page-title p, .cta-section p {
     margin-left: auto;
     margin-right: auto;
 }
-
 .page-title h1 { margin-bottom: 0.5rem; }
 
 
-/* --- Buttons --- */
+/* --- Buttons (Unchanged) --- */
 .cta-button {
-    display: inline-block;
-    background-color: var(--color-accent);
-    color: var(--color-heading-light);
-    padding: 12px 30px;
-    border-radius: 5px;
-    font-weight: 600; /* Use semi-bold weight */
-    text-decoration: none;
+    display: inline-block; background-color: var(--color-accent); color: var(--color-heading-light);
+    padding: 12px 30px; border-radius: 5px; font-weight: 600; text-decoration: none;
     transition: background-color var(--transition-speed), transform var(--transition-speed), box-shadow var(--transition-speed);
-    border: none;
-    cursor: pointer;
-    font-family: var(--font-body); /* Inherit Source Sans Pro */
-    font-size: 1rem;
+    border: none; cursor: pointer; font-family: var(--font-body); font-size: 1rem;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 .cta-button:hover, .cta-button:focus {
-    background-color: darken(var(--color-accent), 10%); /* Needs accent color defined */
-    transform: translateY(-3px);
+    background-color: darken(var(--color-accent), 10%); transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
-
 .cta-button.secondary {
-    background-color: transparent;
-    color: var(--color-accent);
-    border: 2px solid var(--color-accent);
+    background-color: transparent; color: var(--color-accent); border: 2px solid var(--color-accent);
     box-shadow: none;
 }
 .cta-button.secondary:hover, .cta-button.secondary:focus {
-    background-color: var(--color-accent);
-    color: var(--color-heading-light);
+    background-color: var(--color-accent); color: var(--color-heading-light);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
-
 .cta-button.tertiary {
-    background-color: var(--button-tertiary-bg);
-    color: var(--button-tertiary-text);
-    padding: 8px 18px;
-    font-size: 0.9rem;
-    font-weight: 400; /* Regular weight */
-    box-shadow: none;
+    background-color: var(--button-tertiary-bg); color: var(--button-tertiary-text);
+    padding: 8px 18px; font-size: 0.9rem; font-weight: 400; box-shadow: none;
     border: 1px solid transparent;
 }
 .cta-button.tertiary:hover, .cta-button.tertiary:focus {
-    background-color: var(--button-tertiary-hover-bg);
-    transform: translateY(-2px);
-    border-color: var(--section-separator-color);
-    color: var(--heading-color);
+    background-color: var(--button-tertiary-hover-bg); transform: translateY(-2px);
+    border-color: var(--section-separator-color); color: var(--heading-color);
 }
 
 
 /* --- Header & Navigation --- */
+/* Header is inside the wrapper, but needs to be fixed/sticky relative to viewport */
 .main-header {
-    position: fixed;
+    position: fixed; /* Or sticky if preferred */
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1000; /* High z-index, above body::before */
-    background-color: var(--nav-bg); /* Already defined */
+    z-index: 1000; /* Keep high z-index */
+    background-color: var(--nav-bg);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     transition: transform var(--header-transition-speed);
 }
-.header-hidden {
-    transform: translateY(-100%);
-}
+.header-hidden { transform: translateY(-100%); }
 
 .main-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 5%;
-    max-width: 1200px;
-    margin: 0 auto;
-    height: 75px;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 5%; max-width: 1200px; margin: 0 auto; height: 75px;
 }
 
-/* --- START: Update .logo a rule --- */
+/* Logo styling (Unchanged relative to interactive effect) */
 .logo a {
-    font-family: var(--font-heading);
-    font-size: 1.6rem;
-    font-weight: 700;
-    /* color: var(--nav-text); <-- Remove or comment out standard text color */
-    text-decoration: none;
-    transition: color var(--transition-speed); /* Keep for fallback */
-    position: relative; /* Needed for positioning context */
-    z-index: 1; /* Ensure logo is above general content */
-    display: inline-block; /* Needed for proper background sizing */
-
-    /* --- Text Background Clip --- */
-    color: transparent; /* Make text transparent */
-    background: radial-gradient(
-        circle at var(--logo-mouse-x) var(--logo-mouse-y),
-        var(--logo-light-color) 0%,
-        var(--nav-text) 80% /* Fade to standard nav text color */
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-
-    /* Fallback for browsers that don't support background-clip */
-    /* (This won't be perfect but provides visibility) */
-    @supports not (background-clip: text) {
-        color: var(--nav-text);
-        background: none;
-    }
+    font-family: var(--font-heading); font-size: 1.6rem; font-weight: 700;
+    text-decoration: none; transition: color var(--transition-speed);
+    position: relative; z-index: 1; display: inline-block;
+    color: transparent;
+    background: radial-gradient( circle at var(--logo-mouse-x) var(--logo-mouse-y), var(--logo-light-color) 0%, var(--nav-text) 80% );
+    -webkit-background-clip: text; background-clip: text;
+    @supports not (background-clip: text) { color: var(--nav-text); background: none; }
 }
-/* --- END: Update .logo a rule --- */
-/* Logo hover effect (keep or adjust) */
-.logo a:hover {
-    /* Define a hover effect if desired - standard color change won't work well */
-    /* Maybe slightly change the gradient or add text shadow? */
-    /* For simplicity, we might remove the hover color change */
-    color: transparent; /* Keep transparent */
-    /* text-shadow: 0 0 5px var(--color-accent); Optional subtle glow */
-}
+.logo a:hover { color: transparent; /* text-shadow: 0 0 5px var(--color-accent); */ }
 
-/* Desktop Navigation UL */
-.main-nav > ul {
-    list-style: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
-}
+/* Desktop Navigation UL (Unchanged) */
+.main-nav > ul { list-style: none; display: flex; margin: 0; padding: 0; }
 .main-nav > ul li { margin-left: 25px; }
 .main-nav > ul li a {
-    color: var(--nav-text); /* Uses white */
-    font-weight: 600; /* Semi-bold weight for nav links */
-    font-size: 0.95rem;
-    padding-bottom: 5px;
+    color: var(--nav-text); font-weight: 600; font-size: 0.95rem; padding-bottom: 5px;
     border-bottom: 2px solid transparent;
     transition: color var(--transition-speed), border-color var(--transition-speed);
     white-space: nowrap;
 }
-.main-nav > ul li a:hover,
-.main-nav > ul li a:focus,
-.main-nav > ul li a.active {
-    color: var(--color-accent);
-    border-bottom-color: var(--color-accent);
+.main-nav > ul li a:hover, .main-nav > ul li a:focus, .main-nav > ul li a.active {
+    color: var(--color-accent); border-bottom-color: var(--color-accent);
 }
 
 
-/* --- Hamburger Menu --- */
+/* --- Hamburger Menu (Unchanged) --- */
 .hamburger-menu {
-    display: none;
-    background: none;
-    border: none;
-    color: var(--nav-text);
-    font-size: 1.8rem;
-    cursor: pointer;
-    padding: 10px;
-    margin: -10px;
-    z-index: 1050;
-    transition: color var(--transition-speed);
+    display: none; background: none; border: none; color: var(--nav-text); font-size: 1.8rem;
+    cursor: pointer; padding: 10px; margin: -10px; z-index: 1050; transition: color var(--transition-speed);
     margin-left: 15px;
 }
-.hamburger-menu:hover {
-    color: var(--color-accent);
-}
-/* Show hamburger when header is hidden on desktop */
-.header-hidden .hamburger-menu.hamburger-visible {
-    display: block;
-}
+.hamburger-menu:hover { color: var(--color-accent); }
+.header-hidden .hamburger-menu.hamburger-visible { display: block; }
 
 
-/* --- Mobile Navigation Overlay --- */
+/* --- Mobile Navigation Overlay (Unchanged) --- */
 .mobile-nav-overlay {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 300px;
-    max-width: 80%;
-    height: 100vh;
-    background-color: var(--overlay-bg);
-    z-index: 1100;
-    transform: translateX(100%);
-    transition: transform var(--overlay-transition-speed);
-    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
-    padding: 80px 30px 30px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
+    position: fixed; top: 0; right: 0; width: 300px; max-width: 80%; height: 100vh;
+    background-color: var(--overlay-bg); z-index: 1100; transform: translateX(100%);
+    transition: transform var(--overlay-transition-speed); box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+    padding: 80px 30px 30px; overflow-y: auto; display: flex; flex-direction: column;
 }
-.mobile-nav-overlay.overlay-active {
-    transform: translateX(0);
-}
+.mobile-nav-overlay.overlay-active { transform: translateX(0); }
 
 .close-nav {
-    position: absolute;
-    top: 20px;
-    right: 25px;
-    background: none;
-    border: none;
-    color: var(--color-text-light);
-    font-size: 1.8rem; /* Adjusted size for xmark */
-    font-weight: lighter;
-    cursor: pointer;
-    line-height: 1;
-    padding: 10px; /* Hit area */
-    margin: -10px; /* Counteract padding */
+    position: absolute; top: 20px; right: 25px; background: none; border: none;
+    color: var(--color-text-light); font-size: 1.8rem; font-weight: lighter; cursor: pointer;
+    line-height: 1; padding: 10px; margin: -10px;
 }
 .close-nav:hover { color: var(--color-accent); }
-/* Ensure icon inside close button is styled */
-.close-nav i {
-    display: block; /* Prevents layout shifts */
-}
+.close-nav i { display: block; }
 
-.overlay-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-}
-.overlay-nav ul li {
-    margin: 0;
-    padding: 0;
-    border-bottom: 1px solid var(--section-separator-color);
-}
+.overlay-nav ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; }
+.overlay-nav ul li { margin: 0; padding: 0; border-bottom: 1px solid var(--section-separator-color); }
 .overlay-nav ul li:last-child { border-bottom: none; }
 .overlay-nav ul li a {
-    display: block;
-    padding: 18px 10px;
-    color: var(--color-text-light);
-    text-decoration: none;
-    font-size: 1.2rem;
-    font-weight: 600; /* Semi-bold */
+    display: block; padding: 18px 10px; color: var(--color-text-light); text-decoration: none;
+    font-size: 1.2rem; font-weight: 600;
     transition: color var(--transition-speed), background-color var(--transition-speed);
 }
-.overlay-nav ul li a:hover,
-.overlay-nav ul li a.active {
-    color: var(--color-accent);
-}
+.overlay-nav ul li a:hover, .overlay-nav ul li a.active { color: var(--color-accent); }
 
 
-/* --- Hero Section --- */
+/* --- Hero Section (Adjust padding-top if using fixed header) --- */
 .hero-section {
-    min-height: 90vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 60px 5%; /* Standard padding includes top offset now */
-    border-bottom: none;
-    position: relative;
-    /* No margin-top needed, standard section padding handles offset */
+    min-height: 90vh; display: flex; justify-content: center; align-items: center; text-align: center;
+    padding: 60px 5%; border-bottom: none;
+    /* position: relative; */ /* Not needed */
+    padding-top: 75px; /* Add padding equal to fixed header height */
 }
 .hero-content { max-width: 800px; }
 .hero-content h1 { margin-bottom: 1rem; }
-.hero-content p { font-size: 1.15rem; margin-bottom: 2.5rem; opacity: 0.9; font-weight: 400; } /* Regular weight */
+.hero-content p { font-size: 1.15rem; margin-bottom: 2.5rem; opacity: 0.9; font-weight: 400; }
 
 
-/* --- Overview Section (Home) --- */
-.overview-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    margin-top: 2rem;
-}
-.overview-item {
-    background-color: var(--card-bg-color);
-    border-radius: 8px;
-    padding: 30px;
-    text-align: center;
-    border: 1px solid var(--section-separator-color);
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
-    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
-}
-.overview-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
+/* --- Content Sections (Generally Unchanged) --- */
+/* Overview Section */
+.overview-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 2rem; }
+.overview-item { background-color: var(--card-bg-color); border-radius: 8px; padding: 30px; text-align: center; border: 1px solid var(--section-separator-color); backdrop-filter: blur(var(--glass-blur)); -webkit-backdrop-filter: blur(var(--glass-blur)); transition: transform var(--transition-speed), box-shadow var(--transition-speed); }
+.overview-item:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); }
 .overview-icon { font-size: 2.8rem; color: var(--color-accent); margin-bottom: 1rem; }
 .overview-item h3 { color: var(--heading-color); }
 .overview-item p { font-size: 0.95rem; opacity: 0.9; margin-bottom: 1.5rem; font-weight: 400; }
 .learn-more { font-weight: 600; font-size: 0.9rem; }
 
-/* --- Why Us Section (Home) --- */
+/* Why Us Section */
 .why-us-section .content-container { max-width: 800px; margin: 0 auto; text-align: center; }
 .why-us-section ul { list-style: none; padding: 0; margin: 2rem 0; }
 .why-us-section ul li { margin-bottom: 0.8rem; font-size: 1.05rem; font-weight: 400;}
 .why-us-section ul li i { color: var(--color-accent); margin-right: 10px; }
 
-/* --- Product Page --- */
+/* Product Page */
 .product-category { margin-bottom: 4rem; }
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 30px;
-    margin-top: 2rem;
-}
-.product-item {
-    background-color: var(--card-bg-color);
-    border-radius: 8px;
-    overflow: hidden;
-    border: 1px solid var(--section-separator-color);
-    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
-    display: flex;
-    flex-direction: column;
-}
-.product-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
-.product-item img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    background-color: #ccc; /* Placeholder background */
-}
+.product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; margin-top: 2rem; }
+.product-item { background-color: var(--card-bg-color); border-radius: 8px; overflow: hidden; border: 1px solid var(--section-separator-color); transition: transform var(--transition-speed), box-shadow var(--transition-speed); display: flex; flex-direction: column; }
+.product-item:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); }
+.product-item img { width: 100%; height: 200px; object-fit: cover; background-color: #ccc; }
 .product-item h3 { padding: 20px 20px 5px; font-size: 1.3rem; margin-bottom: 0.5rem; font-weight: 600; }
 .product-item p { padding: 0 20px 15px; font-size: 0.9rem; flex-grow: 1; opacity: 0.9; font-weight: 400;}
 .product-item .cta-button { margin: 0 20px 20px; display: block; text-align: center; }
 
 .cta-section { text-align: center; padding: 50px 5%; border-top: 1px solid var(--section-separator-color); }
 
-/* --- Apparel Page --- */
+/* Apparel Page */
 .apparel-info { margin-bottom: 3rem; }
-.apparel-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-}
+.apparel-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
 .apparel-item { text-align: center; }
-.apparel-item img {
-    width: 100%;
-    max-width: 300px;
-    height: auto;
-    border-radius: 8px;
-    margin: 0 auto 1rem;
-    box-shadow: 0 5px 15px rgba(0,0,0, 0.1);
-    background-color: #ccc; /* Placeholder background */
-}
+.apparel-item img { width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin: 0 auto 1rem; box-shadow: 0 5px 15px rgba(0,0,0, 0.1); background-color: #ccc; }
 .apparel-item h3 { font-size: 1.4rem; font-weight: 600; }
-
 .customization-details { padding-top: 3rem; }
 .customization-details h2 { margin-bottom: 2rem; }
-.customization-columns {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    margin-bottom: 3rem;
-}
-.customization-columns .column {
-    background-color: var(--card-bg-color);
-    padding: 30px;
-    border-radius: 8px;
-    border: 1px solid var(--section-separator-color);
-}
+.customization-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 3rem; }
+.customization-columns .column { background-color: var(--card-bg-color); padding: 30px; border-radius: 8px; border: 1px solid var(--section-separator-color); }
 .customization-columns .column i { font-size: 2.5rem; color: var(--color-accent); margin-bottom: 1rem; display: block; }
 .customization-columns .column h3 { font-size: 1.3rem; font-weight: 600;}
 .customization-columns .column ul { list-style: disc; padding-left: 20px; margin-top: 1rem; font-size: 0.95rem; opacity: 0.9; font-weight: 400;}
 .customization-columns .column ul li { margin-bottom: 0.5rem; }
 .centered-cta { text-align: center; }
 
-/* --- About Page --- */
-.about-content .content-image-split {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    align-items: center;
-}
-.about-content .content-image img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0,0,0, 0.1);
-    background-color: #ccc; /* Placeholder background */
-}
+/* About Page */
+.about-content .content-image-split { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+.about-content .content-image img { width: 100%; height: auto; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0, 0.1); background-color: #ccc; }
 .values-section { padding-top: 3rem; }
-.benefits-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 30px;
-    text-align: center;
-}
+.benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; text-align: center; }
 .benefit-icon { font-size: 2.5rem; color: var(--color-accent); margin-bottom: 1rem; }
 .benefit-item h3 { font-size: 1.2rem; margin-bottom: 0.5rem; font-weight: 600; }
 .benefit-item p { font-size: 1rem; opacity: 0.9; font-weight: 400;}
 
 
-/* --- Contact Page --- */
+/* --- Contact Page (Unchanged) --- */
 .contact-info-section { padding-top: 2rem; }
-.contact-columns {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 50px;
-}
+.contact-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
 .contact-info h2, .contact-form-container h2 { text-align: left; margin-bottom: 1.5rem; }
 .contact-info p { margin-bottom: 1rem; display: flex; align-items: flex-start; font-size: 1.05rem; font-weight: 400;}
-.contact-info p i {
-    color: var(--color-accent);
-    margin-right: 15px;
-    width: 20px;
-    text-align: center;
-    flex-shrink: 0;
-    padding-top: 0.2em;
-}
-.contact-info a { color: var(--text-color); font-weight: 400; } /* Ensure links have normal weight */
+.contact-info p i { color: var(--color-accent); margin-right: 15px; width: 20px; text-align: center; flex-shrink: 0; padding-top: 0.2em; }
+.contact-info a { color: var(--text-color); font-weight: 400; }
 .contact-info a:hover { color: var(--color-accent); }
 .map-embed { margin-top: 2rem; border-radius: 8px; overflow: hidden;}
-
 .contact-form-container { }
-
-/* Form Styles */
 #contact-form { margin-top: 0; max-width: none; padding: 0; background: none;}
 .form-group { margin-bottom: 1.5rem; }
-.form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 600; /* Semi-bold label */
-    color: var(--heading-color);
-}
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 12px 15px;
-    border: 1px solid var(--section-separator-color);
-    border-radius: 5px;
-    background-color: rgba(255, 255, 255, 0.05);
-    color: var(--text-color);
-    font-family: var(--font-body); /* Ensure form fields use body font */
-    font-size: 1rem;
-    font-weight: 400; /* Regular weight */
-    transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
-}
-.form-group input:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: var(--color-accent);
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2); /* Use accent color with alpha */
-}
+.form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--heading-color); }
+.form-group input, .form-group textarea { width: 100%; padding: 12px 15px; border: 1px solid var(--section-separator-color); border-radius: 5px; background-color: rgba(255, 255, 255, 0.05); color: var(--text-color); font-family: var(--font-body); font-size: 1rem; font-weight: 400; transition: border-color var(--transition-speed), box-shadow var(--transition-speed); }
+.form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--color-accent); box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2); }
 .form-group textarea { resize: vertical; min-height: 120px; }
 #contact-form button[type="submit"] { display: inline-block; width: auto; margin-top: 1rem; }
 .form-notice { font-size: 0.85rem; margin-top: 1.5rem; opacity: 0.7; text-align: left; }
 
 
 /* --- Footer --- */
+/* Footer is inside wrapper, no specific z-index needed relative to body */
 .main-footer {
     text-align: center;
     padding: 40px 5%;
-    margin-top: auto;
-    background-color: var(--footer-bg); /* Uses black now from :root */
+    margin-top: auto; /* Pushes footer down in flex column */
+    background-color: var(--footer-bg);
     border-top: 1px solid var(--section-separator-color);
     font-size: 0.9rem;
     opacity: 0.8;
-    position: relative; /* Ensure footer is above pseudo-element */
-    z-index: 1;
+    /* position: relative; */ /* Not needed */
+    /* z-index: 1; */         /* Not needed */
 }
 .main-footer p { margin-bottom: 0.5rem; font-weight: 400; }
 
 
-/* --- Scroll Animation --- */
-.fade-in-section {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-}
-.fade-in-section.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
+/* --- Scroll Animation (Unchanged) --- */
+.fade-in-section { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+.fade-in-section.visible { opacity: 1; transform: translateY(0); }
 
 
-/* --- Responsiveness --- */
-@media (max-width: 992px) { /* Tablet and below */
-    .main-nav > ul {
-        display: none;
-    }
-    .hamburger-menu {
-        display: block;
-    }
-    /* No need for .header-hidden .hamburger-menu.hamburger-visible here */
-    /* It's always block on mobile */
-
-    .customization-columns,
-    .about-content .content-image-split,
-    .contact-columns {
-        grid-template-columns: 1fr;
-    }
-     .about-content .content-image { margin-top: 2rem; }
-     .contact-form-container { margin-top: 2rem; }
+/* --- Responsiveness (Unchanged) --- */
+@media (max-width: 992px) {
+    .main-nav > ul { display: none; }
+    .hamburger-menu { display: block; }
+    .customization-columns, .about-content .content-image-split, .contact-columns { grid-template-columns: 1fr; }
+    .about-content .content-image { margin-top: 2rem; }
+    .contact-form-container { margin-top: 2rem; }
 }
 
-@media (max-width: 768px) { /* Mobile */
+@media (max-width: 768px) {
     h1 { font-size: 2rem; }
     h2 { font-size: 1.7rem; }
-
     .main-nav { height: 65px; }
-
-    /* Adjust first section padding for mobile header height */
-    .hero-section, .page-title {
-         padding-top: 85px; /* Adjust padding for 65px header */
-    }
-
+    .hero-section, .page-title { padding-top: 85px; /* Adjust for 65px header */ }
     section { padding: 50px 5%; }
-
-    .overview-grid, .product-grid, .benefits-grid, .apparel-grid {
-        grid-template-columns: 1fr;
-        gap: 25px;
-    }
+    .overview-grid, .product-grid, .benefits-grid, .apparel-grid { grid-template-columns: 1fr; gap: 25px; }
     .product-item img { height: 180px; }
     .contact-columns { gap: 30px; }
-
     .mobile-nav-overlay { width: 85%; }
 }
 
-@media (max-width: 480px) { /* Smaller mobile */
-     h1 { font-size: 1.8rem; }
-     h2 { font-size: 1.5rem; }
-     .cta-button { padding: 10px 20px; font-size: 0.9rem;}
-     .mobile-nav-overlay { width: 90%; }
-     .overlay-nav ul li a { font-size: 1.1rem; padding: 15px 5px; }
-     .close-nav { font-size: 1.8rem; top: 15px; right: 20px;} /* Adjusted size */
-
-     /* Adjust first section padding for smaller mobile header height if needed */
-     .hero-section, .page-title {
-         padding-top: 80px; /* Fine-tune if needed */
-     }
+@media (max-width: 480px) {
+    h1 { font-size: 1.8rem; }
+    h2 { font-size: 1.5rem; }
+    .cta-button { padding: 10px 20px; font-size: 0.9rem;}
+    .mobile-nav-overlay { width: 90%; }
+    .overlay-nav ul li a { font-size: 1.1rem; padding: 15px 5px; }
+    .close-nav { font-size: 1.8rem; top: 15px; right: 20px;}
+    .hero-section, .page-title { padding-top: 80px; /* Fine-tune if needed */ }
 }
