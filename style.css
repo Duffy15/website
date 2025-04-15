@@ -106,6 +106,7 @@ body {
     flex-direction: column;
     flex-grow: 1;
     min-height: 100vh;
+    padding-top: 75px;
 }
 
 body.overlay-open { overflow: hidden; }
@@ -169,7 +170,7 @@ section:last-of-type { border-bottom: none; }
 .overlay-nav ul li a:hover, .overlay-nav ul li a.active { color: var(--color-accent); }
 
 /* --- Hero Section --- */
-.hero-section { min-height: 90vh; display: flex; justify-content: center; align-items: center; text-align: center; padding: 60px 5%; border-bottom: none; padding-top: 75px; /* Account for fixed header */ }
+.hero-section { min-height: 90vh; display: flex; justify-content: center; align-items: center; text-align: center; padding: 60px 5%; border-bottom: none; /* Account for fixed header */ }
 .hero-content { max-width: 800px; }
 .hero-content h1 { margin-bottom: 1rem; }
 .hero-content p { font-size: 1.15rem; margin-bottom: 2.5rem; opacity: 0.9; font-weight: 400; }
@@ -274,7 +275,7 @@ section:last-of-type { border-bottom: none; }
 
 @media (max-width: 768px) {
     h1 { font-size: 2rem; } h2 { font-size: 1.7rem; } .main-nav { height: 65px; }
-    .hero-section, .page-title { padding-top: 85px; } section { padding: 50px 5%; }
+    .hero-section, .page-title { padding-bottom: 5px; } section { padding: 50px 5%; }
     /* Correct grid overrides for mobile */
     .overview-grid, .product-grid, .benefits-grid, .apparel-grid { grid-template-columns: 1fr; gap: 25px; }
     .product-item img { height: 180px; } .contact-columns { gap: 30px; } /* Already 1fr from 992px */
