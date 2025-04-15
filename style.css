@@ -131,6 +131,11 @@ section:last-of-type {
     margin-left: auto;
     margin-right: auto;
 }
+.hero-content p, /* Add this for the hero paragraph */
+.why-us-section .content-container p /* Add this for the why-us paragraph */ {
+    margin-left: auto;
+    margin-right: auto;
+}
 .page-title h1 { margin-bottom: 0.5rem; }
 
 
