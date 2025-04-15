@@ -25,8 +25,8 @@
     --light1-opacity: 0; /* Opacity variable for ambient light (controlled by JS) */
 
     /* Light Colors for ambient effect */
-    --light-color-blue: rgba(0, 123, 255, 0.6);
-    --light-color-pink: rgba(233, 69, 96, 0.6);
+    --light-color-blue: rgba(0, 123, 255, 0.15);
+    --light-color-pink: rgba(233, 69, 96, 0.15);
     /* Other Colors */
     --color-card-bg-dark: rgba(31, 43, 62, 0.65);
     --glass-blur: 8px;
@@ -57,6 +57,30 @@
 }
 /* --- END: Re-Verified :root Block --- */
 
+/* --- Background Effect using Dedicated Div --- */
+.background-lights {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1; /* Place behind content */
+    pointer-events: none; /* Prevent interaction blocking */
+
+    /* Use your ORIGINAL multi-gradient background */
+    background:
+        #000000, /* Solid Black Layer */
+        radial-gradient(circle at 10% 10%, var(--light-color-blue) 0%, transparent 40vmax),
+        radial-gradient(circle at 90% 90%, var(--light-color-pink) 0%, transparent 40vmax),
+        radial-gradient(circle at 90% 10%, var(--light-color-pink) 0%, var(--light-color-blue) 5%, transparent 35vmax);
+    background-repeat: no-repeat;
+    /* background-position is not needed here */
+
+    /* --- Optional: Link to JS opacity control (keep commented for now) --- */
+    /* opacity: var(--light1-opacity, 1); */ /* Default to 1 if variable not set */
+    /* transition: opacity 3s ease-in-out; */
+}
+
 html {
     scroll-behavior: smooth;
     background-color: #000000; /* Ensure base background is black */
@@ -78,23 +102,7 @@ body {
     background: transparent; /* Body itself is transparent */
 }
 
-/* --- TEMPORARY TEST 2 - Force Foreground --- */
-body::before {
-    content: "";
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    /* z-index: -1; */  /* Commented out old z-index */
-    z-index: 10000;    /* Set HIGH positive z-index */
 
-    /* Using the simple test background */
-    background:
-        #000000, /* Black layer */
-        radial-gradient(circle at 50% 50%, rgba(0, 123, 255, 1) 0%, transparent 50%); /* Bright blue */
-
-    background-repeat: no-repeat;
-    /* pointer-events: none; */ /* Commented out to allow inspection if needed */
-}
-/* --- END TEMPORARY TEST 2 --- */
 
 /* Prevent body scroll when overlay is open */
 body.overlay-open {
