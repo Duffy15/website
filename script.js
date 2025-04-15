@@ -48,28 +48,7 @@ document.addEventListener('DOMContentLoaded', () => { // Ensure DOM is loaded
          console.error("Could not find .main-header element");
     }
 
-    // --- Ambient Background Light Effect ---
-    const root = document.documentElement;
-
-    // Check if the device supports hover (likely not a touch device)
-    // This prevents the effect from just staying static on mobile
-    const prefersHover = window.matchMedia('(hover: hover)').matches;
-
-    if (prefersHover) { // Only add listener if hover is supported
-        window.addEventListener('mousemove', (e) => {
-            // Update CSS variables based on mouse position
-            // Using requestAnimationFrame can potentially make it smoother
-            // but direct update is often fine.
-            root.style.setProperty('--mouse-x', e.clientX + 'px');
-            root.style.setProperty('--mouse-y', e.clientY + 'px');
-
-             // Optional: Console log to check values (remove for production)
-             // console.log(`Mouse X: ${e.clientX}, Mouse Y: ${e.clientY}`);
-        });
-        console.log('Ambient light effect initialized.'); // Confirm setup
-    } else {
-        console.log('Ambient light effect skipped (device likely touch-only).');
-    }
+    
 
     // --- Hamburger Menu Toggle ---
     if (hamburgerBtn && mobileNavOverlay) { // Check if elements exist
@@ -134,6 +113,83 @@ document.addEventListener('DOMContentLoaded', () => { // Ensure DOM is loaded
     }
 
 
+    /* --- START: Add NEW Ambient Background Logic --- */
+// --- Ambient Background Light Effect (Timed Opacity Pulse) ---
+const rootStyle = document.documentElement.style;
+let currentLight = 1; // Start with light 1 potentially visible
+
+// Set initial opacity immediately
+rootStyle.setProperty('--light1-opacity', '0.3'); // Start with slight visibility
+rootStyle.setProperty('--light2-opacity', '0');
+rootStyle.setProperty('--light3-opacity', '0');
+
+// This is a very basic example: Fade one overall opacity variable in/out.
+// Controlling individual lights (--light1-opacity, --light2-opacity etc.)
+// would require more complex logic to pick which one fades in/out.
+let lightVisible = true;
+setInterval(() => {
+    const newOpacity = lightVisible ? 0.1 : 0.4; // Fade between low and slightly higher visibility
+    console.log('Setting ambient light opacity to:', newOpacity); // Debug Log
+    rootStyle.setProperty('--light1-opacity', newOpacity.toFixed(2)); // Using light1 for now
+    lightVisible = !lightVisible;
+}, 7000); // Change opacity every 7 seconds (adjust timing)
+
+console.log('Timed ambient light effect initialized.');
+/* --- END: Add NEW Ambient Background Logic --- */
+
+
+/* --- START: Add NEW Interactive Logo Backlight Logic --- */
+// --- Interactive Logo Backlight ---
+const logoLink = document.querySelector('.logo a');
+
+if (logoLink) {
+    // Define the light colors
+    const logoLightColors = [
+        'rgba(0, 123, 255, 0.8)', // Brighter Blue for logo
+        'rgba(233, 69, 96, 0.8)'  // Brighter Pink for logo
+    ];
+    let currentLogoColorIndex = 0; // Start with blue
+
+    // Set initial background color
+    logoLink.style.setProperty('--logo-light-color', logoLightColors[currentLogoColorIndex]);
+
+    logoLink.addEventListener('mousemove', (e) => {
+        const rect = logoLink.getBoundingClientRect();
+        // Calculate mouse position relative to the element
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        // Calculate position as percentage
+        const xPercent = (x / rect.width) * 100;
+        const yPercent = (y / rect.height) * 100;
+
+        // Update CSS variables on the logo element itself
+        logoLink.style.setProperty('--logo-mouse-x', `${xPercent}%`);
+        logoLink.style.setProperty('--logo-mouse-y', `${yPercent}%`);
+
+        // Optionally change color slightly on move (e.g., random small hue shift)
+        // Or change color completely randomly:
+         if (Math.random() > 0.98) { // Low probability on each move event
+             currentLogoColorIndex = (currentLogoColorIndex + 1) % logoLightColors.length;
+             logoLink.style.setProperty('--logo-light-color', logoLightColors[currentLogoColorIndex]);
+             console.log("Logo light color changed"); // Debug Log
+         }
+
+        // console.log(`Logo Mouse: ${xPercent}%, ${yPercent}%`); // Debug Log
+    });
+
+    // Optional: Reset position or effect when mouse leaves
+    logoLink.addEventListener('mouseleave', () => {
+        logoLink.style.setProperty('--logo-mouse-x', '50%');
+        logoLink.style.setProperty('--logo-mouse-y', '-100%'); // Move light away off top
+    });
+
+    console.log('Interactive logo effect initialized.');
+} else {
+    console.error("Could not find .logo a element");
+}
+/* --- END: Add NEW Interactive Logo Backlight Logic --- */
+    
     // --- Contact Form Handling (Keep as before) ---
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
