@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
 
@@ -23,11 +23,14 @@
                 <li><a href="about.html">About Us</a></li>
                 <li><a href="contact.html" class="active">Contact</a></li>
             </ul>
+             <button class="hamburger-menu" aria-label="Toggle Menu" aria-expanded="false">
+                <i class="fa-solid fa-bars"></i>
+            </button>
         </nav>
     </header>
 
      <main class="page-padding">
-         <section class="page-title">
+         <section class="page-title fade-in-section">
             <h1>Get In Touch</h1>
             <p>We're here to help with your physical marketing needs. Contact us for quotes or questions. Based in Poznan.</p>
         </section>
@@ -79,6 +82,19 @@
         <p>Jakub Marszalek | Marketing Manufacturer | Advertising Materials Production | Poznan, Greater Poland</p>
          <p>© <span id="currentYear"></span> Marketing Manufacturer. All rights reserved.</p>
     </footer>
+
+     <div class="mobile-nav-overlay">
+        <button class="close-nav" aria-label="Close Menu">&times;</button>
+        <nav class="overlay-nav">
+            <ul>
+                  <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="apparel.html">Custom Apparel</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
 
     <script src="script.js"></script>
 </body>
