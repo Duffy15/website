@@ -8,7 +8,7 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    padding-top: 75px; /* ADJUST THIS VALUE based on your header's actual height */
+    /* padding-top: 75px;  ADJUST THIS VALUE based on your header's actual height */
                       /* This pushes all content down below the fixed header */
 }
 
