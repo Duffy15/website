@@ -141,3 +141,188 @@ section:last-of-type { border-bottom: none; }
 /* --- PASTE THE REST OF YOUR CSS HERE --- */
 /* (Typography, Buttons, Nav Styles, Overlay Styles, Content Section Styles, Animations, Responsiveness etc. from your full file) */
 /* Double-check none of these styles accidentally add an opaque background to the .page-content-wrapper or <main> */
+.page-padding { }
+
+
+
+.page-title { text-align: center; padding-bottom: 40px; border-bottom: none; }
+
+.page-title p, .cta-section p { margin-left: auto; margin-right: auto; }
+
+.page-title h1 { margin-bottom: 0.5rem; }
+
+
+
+
+
+/* --- Buttons (Unchanged) --- */
+
+.cta-button { display: inline-block; background-color: var(--color-accent); color: var(--color-heading-light); padding: 12px 30px; border-radius: 5px; font-weight: 600; text-decoration: none; transition: background-color var(--transition-speed), transform var(--transition-speed), box-shadow var(--transition-speed); border: none; cursor: pointer; font-family: var(--font-body); font-size: 1rem; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); }
+
+.cta-button:hover, .cta-button:focus { background-color: darken(var(--color-accent), 10%); transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2); }
+
+.cta-button.secondary { background-color: transparent; color: var(--color-accent); border: 2px solid var(--color-accent); box-shadow: none; }
+
+.cta-button.secondary:hover, .cta-button.secondary:focus { background-color: var(--color-accent); color: var(--color-heading-light); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); }
+
+.cta-button.tertiary { background-color: var(--button-tertiary-bg); color: var(--button-tertiary-text); padding: 8px 18px; font-size: 0.9rem; font-weight: 400; box-shadow: none; border: 1px solid transparent; }
+
+.cta-button.tertiary:hover, .cta-button.tertiary:focus { background-color: var(--button-tertiary-hover-bg); transform: translateY(-2px); border-color: var(--section-separator-color); color: var(--heading-color); }
+
+
+
+
+
+/* --- Header & Navigation --- */
+
+.main-header { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background-color: var(--nav-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); transition: transform var(--header-transition-speed); }
+
+.header-hidden { transform: translateY(-100%); }
+
+.main-nav { display: flex; justify-content: space-between; align-items: center; padding: 0 5%; max-width: 1200px; margin: 0 auto; height: 75px; }
+
+.logo a { font-family: var(--font-heading); font-size: 1.6rem; font-weight: 700; text-decoration: none; transition: color var(--transition-speed); position: relative; z-index: 1; display: inline-block; color: transparent; background: radial-gradient( circle at var(--logo-mouse-x) var(--logo-mouse-y), var(--logo-light-color) 0%, var(--nav-text) 80% ); -webkit-background-clip: text; background-clip: text; @supports not (background-clip: text) { color: var(--nav-text); background: none; } }
+
+.logo a:hover { color: transparent; }
+
+.main-nav > ul { list-style: none; display: flex; margin: 0; padding: 0; }
+
+.main-nav > ul li { margin-left: 25px; }
+
+.main-nav > ul li a { color: var(--nav-text); font-weight: 600; font-size: 0.95rem; padding-bottom: 5px; border-bottom: 2px solid transparent; transition: color var(--transition-speed), border-color var(--transition-speed); white-space: nowrap; }
+
+.main-nav > ul li a:hover, .main-nav > ul li a:focus, .main-nav > ul li a.active { color: var(--color-accent); border-bottom-color: var(--color-accent); }
+
+
+
+/* --- Hamburger Menu (Unchanged) --- */
+
+.hamburger-menu { display: none; background: none; border: none; color: var(--nav-text); font-size: 1.8rem; cursor: pointer; padding: 10px; margin: -10px; z-index: 1050; transition: color var(--transition-speed); margin-left: 15px; }
+
+.hamburger-menu:hover { color: var(--color-accent); }
+
+.header-hidden .hamburger-menu.hamburger-visible { display: block; }
+
+
+
+/* --- Mobile Navigation Overlay (Unchanged) --- */
+
+.mobile-nav-overlay { position: fixed; top: 0; right: 0; width: 300px; max-width: 80%; height: 100vh; background-color: var(--overlay-bg); z-index: 1100; transform: translateX(100%); transition: transform var(--overlay-transition-speed); box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2); padding: 80px 30px 30px; overflow-y: auto; display: flex; flex-direction: column; }
+
+.mobile-nav-overlay.overlay-active { transform: translateX(0); }
+
+.close-nav { position: absolute; top: 20px; right: 25px; background: none; border: none; color: var(--color-text-light); font-size: 1.8rem; font-weight: lighter; cursor: pointer; line-height: 1; padding: 10px; margin: -10px; }
+
+.close-nav:hover { color: var(--color-accent); }
+
+.close-nav i { display: block; }
+
+.overlay-nav ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; }
+
+.overlay-nav ul li { margin: 0; padding: 0; border-bottom: 1px solid var(--section-separator-color); }
+
+.overlay-nav ul li:last-child { border-bottom: none; }
+
+.overlay-nav ul li a { display: block; padding: 18px 10px; color: var(--color-text-light); text-decoration: none; font-size: 1.2rem; font-weight: 600; transition: color var(--transition-speed), background-color var(--transition-speed); }
+
+.overlay-nav ul li a:hover, .overlay-nav ul li a.active { color: var(--color-accent); }
+
+
+
+/* --- Hero Section (Adjust padding-top) --- */
+
+.hero-section { min-height: 90vh; display: flex; justify-content: center; align-items: center; text-align: center; padding: 60px 5%; border-bottom: none; padding-top: 75px; /* Account for fixed header */ }
+
+.hero-content { max-width: 800px; }
+
+.hero-content h1 { margin-bottom: 1rem; }
+
+.hero-content p { font-size: 1.15rem; margin-bottom: 2.5rem; opacity: 0.9; font-weight: 400; }
+
+
+
+/* --- Content Sections (Generally Unchanged) --- */
+
+.overview-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 2rem; }
+
+.overview-item { background-color: var(--color-card-bg-dark); border-radius: 8px; padding: 30px; text-align: center; border: 1px solid var(--section-separator-color); backdrop-filter: blur(var(--glass-blur)); -webkit-backdrop-filter: blur(var(--glass-blur)); transition: transform var(--transition-speed), box-shadow var(--transition-speed); }
+
+.overview-item:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); }
+
+.overview-icon { font-size: 2.8rem; color: var(--color-accent); margin-bottom: 1rem; }
+
+.overview-item h3 { color: var(--heading-color); }
+
+.overview-item p { font-size: 0.95rem; opacity: 0.9; margin-bottom: 1.5rem; font-weight: 400; }
+
+.learn-more { font-weight: 600; font-size: 0.9rem; }
+
+
+
+/* --- Footer --- */
+
+.main-footer { text-align: center; padding: 40px 5%; margin-top: auto; background-color: var(--footer-bg); border-top: 1px solid var(--section-separator-color); font-size: 0.9rem; opacity: 0.8; }
+
+.main-footer p { margin-bottom: 0.5rem; font-weight: 400; }
+
+
+
+/* --- Scroll Animation (Unchanged) --- */
+
+.fade-in-section { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+
+.fade-in-section.visible { opacity: 1; transform: translateY(0); }
+
+
+
+/* --- Responsiveness (Generally Unchanged) --- */
+
+@media (max-width: 992px) {
+
+    .main-nav > ul { display: none; }
+
+    .hamburger-menu { display: block; }
+
+    .customization-columns, .about-content .content-image-split, .contact-columns { grid-template-columns: 1fr; }
+
+    .about-content .content-image { margin-top: 2rem; }
+
+    .contact-form-container { margin-top: 2rem; }
+
+}
+
+@media (max-width: 768px) {
+
+    h1 { font-size: 2rem; } h2 { font-size: 1.7rem; } .main-nav { height: 65px; }
+
+    .hero-section, .page-title { padding-top: 85px; } section { padding: 50px 5%; }
+
+    .overview-grid, .product-grid, .benefits-grid, .apparel-grid { grid-template-columns: 1fr; gap: 25px; }
+
+    .product-item img { height: 180px; } .contact-columns { gap: 30px; }
+
+    .mobile-nav-overlay { width: 85%; }
+
+}
+
+@media (max-width: 480px) {
+
+    h1 { font-size: 1.8rem; } h2 { font-size: 1.5rem; }
+
+    .cta-button { padding: 10px 20px; font-size: 0.9rem;}
+
+    .mobile-nav-overlay { width: 90%; }
+
+    .overlay-nav ul li a { font-size: 1.1rem; padding: 15px 5px; }
+
+    .close-nav { font-size: 1.8rem; top: 15px; right: 20px;}
+
+    .hero-section, .page-title { padding-top: 80px; }
+
+}
+
+
+
+/* Add other specific section styles (Why Us, Product, Apparel, About, Contact etc.) back here if they were removed */
+
+/* Ensure form styles, map styles etc. are present */
