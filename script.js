@@ -113,78 +113,95 @@ document.addEventListener('DOMContentLoaded', () => { // Ensure DOM is loaded
     }
 
 
-/* --- START: Random Moving & Fading Ambient Background Logic --- */
+/* --- START: Random Moving & Fading Ambient Background Logic (v2 - Smoother Fade-in & Stability) --- */
 const rootStyle = document.documentElement.style;
 
 // --- Configuration ---
-const lightConfig = [
-    { id: 1, variableColor: '--light-color-blue' }, // Matches .background-lights
-    { id: 2, variableColor: '--light-color-pink' }, // Matches ::before
-    { id: 3, variableColor: '--light-color-blue' }  // Matches ::after (using blue here)
+const lightConfig = [ // Optional config if colors differ significantly later
+    { id: 1, variableColor: '--light-color-blue' },
+    { id: 2, variableColor: '--light-color-pink' },
+    { id: 3, variableColor: '--light-color-blue' }
 ];
-const dimOpacity = 0;      // Fully faded out
-const brightOpacity = 1;   // Fully faded in (brightness set by CSS color alpha)
-const minFadeDelay = 2500; // Min time before next change (2.5s)
-const maxFadeDelay = 7000; // Max time before next change (7s)
-const minX = 5;  const maxX = 95; // Position range %
-const minY = 5;  const maxY = 95;
-const minSize = 35; const maxSize = 50; // Size range (vmax)
+const dimOpacity = 0;       // Opacity when faded out
+const brightOpacity = 1;    // Opacity when faded in (actual brightness from CSS color alpha)
+const minDelay = 3000;      // Min time before next change (3s) - Increased slightly
+const maxDelay = 8000;      // Max time before next change (8s) - Increased slightly
+const minX = 5;  const maxX = 95; // X Position range %
+const minY = 5;  const maxY = 95; // Y Position range %
+const minSize = 35; const maxSize = 55; // Size range (vmax)
+const positionUpdateDelay = 150; // Delay (ms) AFTER moving BEFORE fading in
 
-console.log('Initializing random moving ambient light effect...');
+console.log('Initializing random moving ambient light effect (v2)...');
 
 // --- Function to Update a Single Light ---
 function updateLight(lightNumber) {
-    // Decide whether to fade IN (and move) or fade OUT
-    const fadeOut = Math.random() < 0.4; // 40% chance of fading out this cycle
+    try { // Add basic error handling
+        // Decide whether to fade IN (and move) or fade OUT
+        // Bias slightly towards fading in if currently dim
+        const currentOpacity = parseFloat(rootStyle.getPropertyValue(`--light${lightNumber}-opacity`)) || 0;
+        const shouldFadeOut = (currentOpacity > dimOpacity) && (Math.random() < 0.4); // 40% chance to fade out if currently bright
 
-    if (fadeOut) {
-        // Fade Out
-        console.log(`Fading out Light ${lightNumber}`);
-        rootStyle.setProperty(`--light${lightNumber}-opacity`, dimOpacity);
-    } else {
-        // Fade In / Move
-        // Calculate new random position & size
-        const newX = Math.random() * (maxX - minX) + minX;
-        const newY = Math.random() * (maxY - minY) + minY;
-        const newSize = Math.random() * (maxSize - minSize) + minSize;
+        if (shouldFadeOut) {
+            // --- Fade Out ---
+            console.log(`Fading out Light ${lightNumber}`);
+            rootStyle.setProperty(`--light${lightNumber}-opacity`, dimOpacity);
 
-        console.log(`Fading in/Moving Light ${lightNumber} to ${newX.toFixed(0)}%, ${newY.toFixed(0)}%`);
+        } else if (currentOpacity < brightOpacity) { // Only fade in if not already bright
+            // --- Fade In / Move ---
+            // 1. Calculate new random position & size
+            const newX = Math.random() * (maxX - minX) + minX;
+            const newY = Math.random() * (maxY - minY) + minY;
+            const newSize = Math.random() * (maxSize - minSize) + minSize;
 
-        // Update position & size variables first
-        rootStyle.setProperty(`--light${lightNumber}-x`, `${newX.toFixed(2)}%`);
-        rootStyle.setProperty(`--light${lightNumber}-y`, `${newY.toFixed(2)}%`);
-        rootStyle.setProperty(`--light${lightNumber}-size`, `${newSize.toFixed(0)}vmax`);
+            console.log(`Moving Light ${lightNumber} to ${newX.toFixed(0)}%, ${newY.toFixed(0)}% then fading in`);
 
-        // Set opacity to bright to fade it in (with slight delay)
-        // Use setTimeout to ensure position applies *before* opacity transition starts
-        setTimeout(() => {
-             rootStyle.setProperty(`--light${lightNumber}-opacity`, brightOpacity);
-        }, 50); // Small delay (50ms)
+            // 2. Ensure opacity is 0 *first* (it likely already is if fading in)
+            rootStyle.setProperty(`--light${lightNumber}-opacity`, dimOpacity);
+
+            // 3. Set new position/size variables immediately
+            rootStyle.setProperty(`--light${lightNumber}-x`, `${newX.toFixed(2)}%`);
+            rootStyle.setProperty(`--light${lightNumber}-y`, `${newY.toFixed(2)}%`);
+            rootStyle.setProperty(`--light${lightNumber}-size`, `${newSize.toFixed(0)}vmax`);
+
+            // 4. Wait briefly for position to apply, then trigger fade-in
+            setTimeout(() => {
+                 // Check if opacity is still dim before fading in
+                 // (prevents interrupting a fade-out triggered immediately after)
+                 if (parseFloat(rootStyle.getPropertyValue(`--light${lightNumber}-opacity`)) <= dimOpacity) {
+                     console.log(`Fading in Light ${lightNumber} at new position`);
+                     rootStyle.setProperty(`--light${lightNumber}-opacity`, brightOpacity);
+                 }
+            }, positionUpdateDelay);
+        }
+        // else: Already bright, do nothing this cycle or potentially just move without fade? (kept simple for now)
+
+    } catch (error) {
+        console.error(`Error updating light ${lightNumber}:`, error);
     }
 }
 
 // --- Function to Schedule the Next Random Update ---
 function scheduleNextUpdate() {
-    // Calculate random delay
-    const nextDelay = Math.random() * (maxFadeDelay - minFadeDelay) + minFadeDelay;
-
-    // Schedule the update
+    const nextDelay = Math.random() * (maxDelay - minDelay) + minDelay;
+    // console.log(`Next light update in ${Math.round(nextDelay / 1000)} seconds`);
     setTimeout(() => {
-        // Choose which light to update next (1, 2, or 3)
+        // Choose which light to potentially update next (1, 2, or 3)
         const targetLight = Math.floor(Math.random() * 3) + 1;
-        updateLight(targetLight); // Update the chosen light
-        scheduleNextUpdate(); // Schedule the *next* update after this one completes
+        updateLight(targetLight); // Attempt to update the chosen light
+        scheduleNextUpdate();    // Schedule the *next* random update attempt
     }, nextDelay);
 }
 
 // --- Initial Start ---
-// Optionally fade in one or two lights immediately for a starting visual
- setTimeout(() => updateLight(1), 100); // Start light 1 quickly
- setTimeout(() => updateLight(2), 1500); // Start light 2 after 1.5s
-// Start the recurring random scheduling
-scheduleNextUpdate();
+// Ensure initial opacities are set (should match CSS :root)
+rootStyle.setProperty('--light1-opacity', dimOpacity);
+rootStyle.setProperty('--light2-opacity', dimOpacity);
+rootStyle.setProperty('--light3-opacity', dimOpacity);
 
-/* --- END: Random Moving & Fading Ambient Background Logic --- */
+// Start the random scheduling loop
+scheduleNextUpdate(); // Begin the cycle
+
+/* --- END: Random Moving & Fading Ambient Background Logic (v2) --- */
 
 
 /* --- START: Add NEW Interactive Logo Backlight Logic --- */
