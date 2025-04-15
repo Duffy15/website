@@ -125,6 +125,12 @@ section:last-of-type {
     border-bottom: none;
     /* Using standard section padding for top offset */
 }
+/* Center specific paragraph blocks that have max-width */
+.page-title p,
+.cta-section p {
+    margin-left: auto;
+    margin-right: auto;
+}
 .page-title h1 { margin-bottom: 0.5rem; }
 
 
