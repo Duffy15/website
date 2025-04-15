@@ -18,6 +18,11 @@
     --light-color-blue: rgba(0, 123, 255, 0.15);
     --light-color-pink: rgba(233, 69, 96, 0.15);
 
+    /* Variables for pseudo-element opacity */
+    --pseudo-before-opacity: 1; /* Start fully visible */
+    --pseudo-after-opacity: 1;  /* Start fully visible */
+
+    
     /* Other Colors */
     --color-card-bg-dark: rgba(31, 43, 62, 0.65); /* Used in overview/product items */
     --glass-blur: 8px;
@@ -85,6 +90,11 @@ body {
     inset: 0;
     pointer-events: none;
     background-repeat: no-repeat;
+
+    /* --- ADD THESE LINES --- */
+    opacity: var(--current-light-opacity, 1); /* Use a single variable for now */
+    transition: opacity 3s ease-in-out; /* Adjust duration/timing (e.g., 3s) */
+    /* --- END ADDED LINES --- */
 }
 .background-lights::before {
     background:
