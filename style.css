@@ -126,16 +126,22 @@ section:last-of-type {
     margin-top: 0; /* REMOVE margin-top if you added it previously */
 }
 
-.page-title { /* For subpages like products.html, contact.html etc. */
-   /* ... keep existing page-title styles like text-align, padding-bottom etc ... */
-    padding-top: 95px; /* Add padding - ADJUST if header height changes */
-}
+.page-title {
+    text-align: center;
+    padding-bottom: 40px; /* Keep existing bottom padding */
+    border-bottom: none;
 
-/* Adjust main padding for subpages if needed */
-.page-padding {
-     /* Ensure no conflicting padding-top here */
+    /* ADD THE PADDING HERE: */
+    padding-top: 95px; /* Pushes content below the 75px fixed header */
+                      /* Adjust 95px if needed */
 }
 .page-title h1 { margin-bottom: 0.5rem; }
+.page-title p { /* Keep existing styles if any */ }
+
+/* ... potentially .page-padding rule follows ... */
+.page-padding {
+     /* Ensure there is NO padding-top here that conflicts */
+}
 
 
 /* --- Buttons --- */
@@ -350,9 +356,10 @@ section:last-of-type {
     /* REMOVED explicit padding-top - header overlaps */
     border-bottom: none;
     position: relative; /* For potential pseudo-elements */
-    margin-top: 75px; /* Add margin matching header height to push it down initially */
-                      /* This is an alternative if padding the body caused issues */
-                      /* Or REMOVE this if initial overlap is okay */
+    /* ADD THE PADDING HERE: */
+    padding-top: 95px; /* Pushes content below the 75px fixed header */
+                      /* Adjust 95px if needed */
+
 }
 .hero-content { max-width: 800px; }
 .hero-content h1 { margin-bottom: 1rem; }
