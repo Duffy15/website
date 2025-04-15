@@ -113,38 +113,78 @@ document.addEventListener('DOMContentLoaded', () => { // Ensure DOM is loaded
     }
 
 
-/* --- START: Modified Ambient Background Logic --- */
-// --- Ambient Background Light Effect (Timed Opacity Pulse) ---
-const rootStyle = document.documentElement.style; // Get root style object
+/* --- START: Random Moving & Fading Ambient Background Logic --- */
+const rootStyle = document.documentElement.style;
 
-// Define the opacity range and timing
-const minOpacity = 0.3; // Minimum visible opacity for the lights
-const maxOpacity = 0.8; // Maximum visible opacity for the lights
-const fadeInterval = 7000; // Time in milliseconds (7 seconds)
+// --- Configuration ---
+const lightConfig = [
+    { id: 1, variableColor: '--light-color-blue' }, // Matches .background-lights
+    { id: 2, variableColor: '--light-color-pink' }, // Matches ::before
+    { id: 3, variableColor: '--light-color-blue' }  // Matches ::after (using blue here)
+];
+const dimOpacity = 0;      // Fully faded out
+const brightOpacity = 1;   // Fully faded in (brightness set by CSS color alpha)
+const minFadeDelay = 2500; // Min time before next change (2.5s)
+const maxFadeDelay = 7000; // Max time before next change (7s)
+const minX = 5;  const maxX = 95; // Position range %
+const minY = 5;  const maxY = 95;
+const minSize = 35; const maxSize = 50; // Size range (vmax)
 
-let lightsFadingOut = true; // Start by fading out from initial full opacity
+console.log('Initializing random moving ambient light effect...');
 
-// Set initial opacity using the new variable name
-// (CSS now defaults to 1, so JS will start the fade)
-// rootStyle.setProperty('--current-light-opacity', maxOpacity.toFixed(2)); // Optional: Start at max
+// --- Function to Update a Single Light ---
+function updateLight(lightNumber) {
+    // Decide whether to fade IN (and move) or fade OUT
+    const fadeOut = Math.random() < 0.4; // 40% chance of fading out this cycle
 
-console.log('Initializing timed ambient light effect...');
+    if (fadeOut) {
+        // Fade Out
+        console.log(`Fading out Light ${lightNumber}`);
+        rootStyle.setProperty(`--light${lightNumber}-opacity`, dimOpacity);
+    } else {
+        // Fade In / Move
+        // Calculate new random position & size
+        const newX = Math.random() * (maxX - minX) + minX;
+        const newY = Math.random() * (maxY - minY) + minY;
+        const newSize = Math.random() * (maxSize - minSize) + minSize;
 
-setInterval(() => {
-    // Determine target opacity
-    const targetOpacity = lightsFadingOut ? minOpacity : maxOpacity;
+        console.log(`Fading in/Moving Light ${lightNumber} to ${newX.toFixed(0)}%, ${newY.toFixed(0)}%`);
 
-    console.log(`Setting ambient light opacity to: ${targetOpacity.toFixed(2)}`); // Debug Log
+        // Update position & size variables first
+        rootStyle.setProperty(`--light${lightNumber}-x`, `${newX.toFixed(2)}%`);
+        rootStyle.setProperty(`--light${lightNumber}-y`, `${newY.toFixed(2)}%`);
+        rootStyle.setProperty(`--light${lightNumber}-size`, `${newSize.toFixed(0)}vmax`);
 
-    // Update the single CSS variable controlling both pseudo-elements
-    rootStyle.setProperty('--current-light-opacity', targetOpacity.toFixed(2));
+        // Set opacity to bright to fade it in (with slight delay)
+        // Use setTimeout to ensure position applies *before* opacity transition starts
+        setTimeout(() => {
+             rootStyle.setProperty(`--light${lightNumber}-opacity`, brightOpacity);
+        }, 50); // Small delay (50ms)
+    }
+}
 
-    // Toggle the direction for the next interval
-    lightsFadingOut = !lightsFadingOut;
+// --- Function to Schedule the Next Random Update ---
+function scheduleNextUpdate() {
+    // Calculate random delay
+    const nextDelay = Math.random() * (maxFadeDelay - minFadeDelay) + minFadeDelay;
 
-}, fadeInterval); // Change opacity every interval
+    // Schedule the update
+    setTimeout(() => {
+        // Choose which light to update next (1, 2, or 3)
+        const targetLight = Math.floor(Math.random() * 3) + 1;
+        updateLight(targetLight); // Update the chosen light
+        scheduleNextUpdate(); // Schedule the *next* update after this one completes
+    }, nextDelay);
+}
 
-/* --- END: Modified Ambient Background Logic --- */
+// --- Initial Start ---
+// Optionally fade in one or two lights immediately for a starting visual
+ setTimeout(() => updateLight(1), 100); // Start light 1 quickly
+ setTimeout(() => updateLight(2), 1500); // Start light 2 after 1.5s
+// Start the recurring random scheduling
+scheduleNextUpdate();
+
+/* --- END: Random Moving & Fading Ambient Background Logic --- */
 
 
 /* --- START: Add NEW Interactive Logo Backlight Logic --- */
