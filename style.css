@@ -83,3 +83,138 @@ body {
 .page-padding {
      /* padding-top: 100px; <-- REMOVE or adjust if using body padding */
 }
+/* --- Hide Header on Scroll --- */
+.main-header {
+    /* ... keep existing styles like position:fixed, background, etc. ... */
+    transition: transform 0.4s ease-out; /* Smooth hide/show */
+}
+
+.header-hidden {
+    transform: translateY(-100%); /* Move header up */
+}
+
+/* --- Hamburger Menu --- */
+.hamburger-menu {
+    display: none; /* Hidden by default on desktop */
+    background: none;
+    border: none;
+    color: var(--nav-text); /* Match nav text color */
+    font-size: 1.8rem; /* Adjust size */
+    cursor: pointer;
+    padding: 5px;
+    z-index: 1050; /* Above header */
+    transition: color var(--transition-speed);
+    margin-left: 15px; /* Space from other nav items if needed */
+}
+.hamburger-menu:hover {
+    color: var(--color-accent);
+}
+/* Show hamburger when header is hidden on desktop OR always on mobile */
+.header-hidden .hamburger-menu {
+    display: block; /* Show when header hides */
+}
+
+
+/* --- Mobile Navigation Overlay --- */
+.mobile-nav-overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px; /* Adjust width */
+    max-width: 80%;
+    height: 100vh;
+    background-color: var(--color-bg-dark-end); /* Use a solid background */
+    z-index: 1100; /* Above everything */
+    transform: translateX(100%); /* Start off-screen */
+    transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1); /* Smooth slide */
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+    padding: 80px 30px 30px; /* Padding top to avoid close button overlap */
+    overflow-y: auto; /* Allow scrolling if content overflows */
+    display: flex;
+    flex-direction: column;
+}
+
+.mobile-nav-overlay.overlay-active {
+    transform: translateX(0); /* Slide in */
+}
+
+.close-nav {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    background: none;
+    border: none;
+    color: var(--color-text-light);
+    font-size: 2.5rem;
+    font-weight: lighter;
+    cursor: pointer;
+    line-height: 1;
+}
+.close-nav:hover {
+     color: var(--color-accent);
+}
+
+.overlay-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.overlay-nav ul li {
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid var(--section-separator-color);
+}
+ .overlay-nav ul li:last-child {
+     border-bottom: none;
+ }
+
+.overlay-nav ul li a {
+    display: block;
+    padding: 18px 0;
+    color: var(--color-text-light);
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 600;
+    transition: color var(--transition-speed), background-color var(--transition-speed);
+}
+
+.overlay-nav ul li a:hover,
+.overlay-nav ul li a.active { /* Highlight active link */
+    color: var(--color-accent);
+    /* background-color: rgba(var(--color-accent-rgb), 0.1); Optional hover bg */
+}
+
+/* Prevent body scroll when overlay is open */
+body.overlay-open {
+    overflow: hidden;
+}
+
+
+/* --- Responsiveness for Nav --- */
+@media (max-width: 992px) { /* Adjust breakpoint as needed */
+    .main-nav ul {
+        display: none; /* Hide standard horizontal nav on mobile */
+    }
+    .hamburger-menu {
+        display: block; /* Show hamburger always on mobile */
+        /* Ensure it's visible even if header isn't hidden */
+    }
+     .header-hidden .hamburger-menu {
+         /* Already displayed by default on mobile, no change needed */
+     }
+}
+
+/* Adjust existing mobile styles if necessary */
+@media (max-width: 768px) {
+     /* Potentially adjust hamburger size or position further */
+     .main-nav {
+         /* Maybe remove flex-direction: column from previous attempts */
+         /* Ensure space-between still works or adjust as needed */
+     }
+     .mobile-nav-overlay {
+         width: 85%; /* Make overlay wider on smaller screens */
+     }
+}
