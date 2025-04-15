@@ -12,12 +12,24 @@
     --text-color: var(--color-text-light);
     --heading-color: var(--color-heading-light);
     --nav-text: var(--color-heading-light);
+    /* --- Ambient Light Variables --- */
+    /* Opacities (controlled by JS, start faded out) */
     --light1-opacity: 0;
-
-    /* Light Colors for ambient effect (Using subtle opacity) */
-    --light-color-blue: rgba(0, 123, 255, 0.15);
-    --light-color-pink: rgba(233, 69, 96, 0.15);
-
+    --light2-opacity: 0;
+    --light3-opacity: 0;
+    /* Positions (controlled by JS, set initial) */
+    --light1-x: 10%; --light1-y: 10%;
+    --light2-x: 90%; --light2-y: 90%;
+    --light3-x: 90%; --light3-y: 10%;
+    /* Size (controlled by JS, set initial) */
+    --light1-size: 40vmax;
+    --light2-size: 40vmax;
+    --light3-size: 35vmax;
+    /* Base Light Colors (Set desired max brightness/alpha here) */
+    --light-color-blue: rgba(0, 123, 255, 0.7); /* e.g., 70% max alpha */
+    --light-color-pink: rgba(233, 69, 96, 0.7); /* e.g., 70% max alpha */
+    /* Transition Speed */
+    --light-fade-duration: 3.5s; /* Slower fade */
     /* Variables for pseudo-element opacity */
     --pseudo-before-opacity: 1; /* Start fully visible */
     --pseudo-after-opacity: 1;  /* Start fully visible */
@@ -72,17 +84,29 @@ body {
     z-index: 0;
 }
 
-/* --- Background Div --- */
+/* --- Background Div (Solid Black + Light 1) --- */
 .background-lights {
     position: fixed;
     inset: 0;
     z-index: -1;
     pointer-events: none;
-    background-color: #000000;
+    background-color: #000000; /* Base black */
     overflow: hidden;
+
+    /* Light 1 Gradient Definition */
+    background-image: radial-gradient(
+        circle at var(--light1-x) var(--light1-y),
+        var(--light-color-blue) 0%, /* Use base color */
+        transparent var(--light1-size)
+    );
+    background-repeat: no-repeat;
+
+    /* Control visibility via opacity */
+    opacity: var(--light1-opacity);
+    transition: opacity var(--light-fade-duration) ease-in-out;
 }
 
-/* --- Lights using Pseudo-elements --- */
+/* --- Pseudo-elements for Lights 2 & 3 --- */
 .background-lights::before,
 .background-lights::after {
     content: "";
@@ -90,20 +114,30 @@ body {
     inset: 0;
     pointer-events: none;
     background-repeat: no-repeat;
+    /* Control visibility via opacity */
+    transition: opacity var(--light-fade-duration) ease-in-out;
+}
 
-    /* --- ADD THESE LINES --- */
-    opacity: var(--current-light-opacity, 1); /* Use a single variable for now */
-    transition: opacity 3s ease-in-out; /* Adjust duration/timing (e.g., 3s) */
-    /* --- END ADDED LINES --- */
-}
+/* Light 2 (Pink BR) */
 .background-lights::before {
-    background:
-        radial-gradient(circle at 10% 10%, var(--light-color-blue) 0%, transparent 40vmax),
-        radial-gradient(circle at 90% 10%, var(--light-color-pink) 0%, var(--light-color-blue) 5%, transparent 35vmax);
+     background-image: radial-gradient(
+        circle at var(--light2-x) var(--light2-y),
+        var(--light-color-pink) 0%, /* Use base color */
+        transparent var(--light2-size)
+     );
+     opacity: var(--light2-opacity);
 }
+
+/* Light 3 (Using Blue TR for this example) */
+/* Note: The original "mix" gradient is hard to randomize easily */
+/* We'll use the other base color here. You can swap if needed. */
 .background-lights::after {
-    background:
-        radial-gradient(circle at 90% 90%, var(--light-color-pink) 0%, transparent 40vmax);
+     background-image: radial-gradient(
+         circle at var(--light3-x) var(--light3-y),
+         var(--light-color-blue) 0%, /* Using blue base color */
+         transparent var(--light3-size)
+     );
+     opacity: var(--light3-opacity);
 }
 
 /* --- Page Content Wrapper --- */
