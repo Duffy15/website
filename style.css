@@ -12,25 +12,21 @@
     --text-color: var(--color-text-light);
     --heading-color: var(--color-heading-light);
     --nav-text: var(--color-heading-light);
-    /* --- Ambient Light Variables --- */
+   /* --- Ambient Light Variables (2 Lights) --- */
     /* Opacities (controlled by JS, start faded out) */
-    --light1-opacity: 0;
-    --light2-opacity: 0;
-    --light3-opacity: 0;
+    --light-blue-opacity: 0;
+    --light-pink-opacity: 0;
     /* Positions (controlled by JS, set initial) */
-    --light1-x: 10%; --light1-y: 10%;
-    --light2-x: 90%; --light2-y: 90%;
-    --light3-x: 90%; --light3-y: 10%;
+    --light-blue-x: 10%; --light-blue-y: 10%;
+    --light-pink-x: 90%; --light-pink-y: 90%;
     /* Size (controlled by JS, set initial) */
-    --light1-size: 40vmax;
-    --light2-size: 40vmax;
-    --light3-size: 35vmax;
-    /* Base Light Colors (Set desired max brightness/alpha here) */
-    --light-color-blue: rgba(0, 123, 255, 0.7); /* e.g., 70% max alpha */
-    --light-color-pink: rgba(233, 69, 96, 0.7); /* e.g., 70% max alpha */
+    --light-blue-size: 45vmax; /* Can adjust size */
+    --light-pink-size: 45vmax; /* Can adjust size */
+    /* Base Light Colors (Set desired max brightness/alpha for blending) */
+    --light-color-blue: rgba(0, 123, 255, 0.65); /* e.g., 65% max alpha */
+    --light-color-pink: rgba(233, 69, 96, 0.65); /* e.g., 65% max alpha */
     /* Transition Speed */
-    --light-fade-duration: 3.5s; /* Slower fade */
-    /* Variables for pseudo-element opacity */
+    --light-fade-duration: 4s;
     --pseudo-before-opacity: 1; /* Start fully visible */
     --pseudo-after-opacity: 1;  /* Start fully visible */
 
@@ -84,31 +80,20 @@ body {
     z-index: 0;
 }
 
-/* --- Background Div (Solid Black + Light 1) --- */
+/* --- Background Container (Solid Black ONLY) --- */
 .background-lights {
     position: fixed;
     inset: 0;
     z-index: -1;
     pointer-events: none;
-    background-color: #000000; /* Base black */
+    background-color: #000000; /* Apply ONLY solid black here */
     overflow: hidden;
-
-    /* Light 1 Gradient Definition */
-    background-image: radial-gradient(
-        circle at var(--light1-x) var(--light1-y),
-        var(--light-color-blue) 0%, /* Use base color */
-        transparent var(--light1-size)
-    );
-    background-repeat: no-repeat;
-
-    /* Control visibility via opacity */
-    opacity: var(--light1-opacity);
-    transition: opacity var(--light-fade-duration) ease-in-out;
+    /* REMOVE background-image, opacity, transition from here */
 }
 
-/* --- Pseudo-elements for Lights 2 & 3 --- */
-.background-lights::before,
-.background-lights::after {
+/* --- Pseudo-elements for Lights --- */
+.background-lights::before, /* Blue Light */
+.background-lights::after {  /* Pink Light */
     content: "";
     position: absolute;
     inset: 0;
@@ -118,26 +103,26 @@ body {
     transition: opacity var(--light-fade-duration) ease-in-out;
 }
 
-/* Light 2 (Pink BR) */
+/* Blue Light (::before - Blends with below) */
 .background-lights::before {
      background-image: radial-gradient(
-        circle at var(--light2-x) var(--light2-y),
-        var(--light-color-pink) 0%, /* Use base color */
-        transparent var(--light2-size)
+        circle at var(--light-blue-x) var(--light-blue-y),
+        var(--light-color-blue) 0%,
+        transparent var(--light-blue-size)
      );
-     opacity: var(--light2-opacity);
+     opacity: var(--light-blue-opacity);
+     mix-blend-mode: screen; /* <<< ADD THIS BLEND MODE */
 }
 
-/* Light 3 (Using Blue TR for this example) */
-/* Note: The original "mix" gradient is hard to randomize easily */
-/* We'll use the other base color here. You can swap if needed. */
+/* Pink Light (::after - Base layer for blending) */
 .background-lights::after {
      background-image: radial-gradient(
-         circle at var(--light3-x) var(--light3-y),
-         var(--light-color-blue) 0%, /* Using blue base color */
-         transparent var(--light3-size)
+         circle at var(--light-pink-x) var(--light-pink-y),
+         var(--light-color-pink) 0%,
+         transparent var(--light-pink-size)
      );
-     opacity: var(--light3-opacity);
+     opacity: var(--light-pink-opacity);
+     /* No blend mode needed on the bottom layer */
 }
 
 /* --- Page Content Wrapper --- */
