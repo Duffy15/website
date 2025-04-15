@@ -9,34 +9,37 @@
     box-sizing: border-box;
 }
 
+/* Update this block at the top of style.css */
 :root {
-    /* Color Palette (Dark Mode Default) */
-    --color-primary: #3a7bd5;  /* Blueish */
-    --color-secondary: #3a60d5; /* Slightly darker blue */
-    --color-accent: #e94560;   /* Accent Pink/Red - Used for highlights, buttons */
+    /* Color Palette (Revised for more distinction) */
+    --color-primary: #007bff;         /* Electric Blue - New Primary Accent */
+    --color-secondary-accent: #e94560;/* Pink/Red - Can be used for secondary highlights */
     --color-text-light: #f0f0f0;
     --color-text-dark: #212529;
     --color-heading-light: #ffffff;
     --color-bg-light-start: #eef2f3;
     --color-bg-light-end: #ffffff;
-    --color-bg-dark-start: #1a2940;  /* Dark Blue */
-    --color-bg-dark-end: #121c2a;    /* Deeper Blue */
-    --color-card-bg-dark: rgba(40, 55, 80, 0.6);
+    --color-bg-dark-start: #1f2b3e;  /* Slightly lighter dark blue start */
+    --color-bg-dark-end: #101826;    /* Slightly deeper dark end */
+    --color-card-bg-dark: rgba(31, 43, 62, 0.65); /* Adjusted card background */
     --glass-blur: 8px;
 
     /* --- Active Theme (Dark Mode) --- */
-    --bg-gradient: linear-gradient(180deg, var(--color-bg-dark-start) 0%, var(--color-bg-dark-end) 100%);
+    --bg-gradient: linear-gradient(170deg, var(--color-bg-dark-start) 0%, var(--color-bg-dark-end) 100%); /* Changed angle */
     --text-color: var(--color-text-light);
     --heading-color: var(--color-heading-light);
     --card-bg-color: var(--color-card-bg-dark);
-    --nav-bg: rgba(26, 41, 64, 0.85); /* Slightly more opaque nav */
+    --nav-bg: rgba(26, 41, 64, 0.9); /* Slightly more opaque */
     --nav-text: var(--color-heading-light);
     --footer-bg: var(--color-bg-dark-end);
     --button-tertiary-bg: rgba(255, 255, 255, 0.1);
     --button-tertiary-text: var(--color-text-light);
     --button-tertiary-hover-bg: rgba(255, 255, 255, 0.2);
-    --section-separator-color: rgba(255, 255, 255, 0.1); /* Subtle separator */
-    --overlay-bg: var(--color-bg-dark-end); /* Overlay background */
+    --section-separator-color: rgba(255, 255, 255, 0.1);
+    --overlay-bg: #152033; /* Slightly different overlay bg */
+
+    /* --- NEW Primary Accent Usage --- */
+    --color-accent: var(--color-primary); /* Using the Electric Blue as main accent */
 
 
     /* Fonts */
@@ -45,7 +48,7 @@
 
     /* Transitions & Animations */
     --transition-speed: 0.4s ease;
-    --animation-delay: 0.1s; /* Base delay for staggered animations */
+    --animation-delay: 0.1s;
     --header-transition-speed: 0.4s ease-out;
     --overlay-transition-speed: 0.5s cubic-bezier(0.77, 0, 0.175, 1);
 }
