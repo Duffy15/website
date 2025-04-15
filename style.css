@@ -67,7 +67,7 @@ body {
 
     /* Apply background directly - COMMENT REMOVED */
     background:
-        #000000, /* Layer 1: Black */
+        #000000, 
         radial-gradient(circle at 10% 10%, var(--light-color-blue) 0%, transparent 40vmax), 
         radial-gradient(circle at 90% 90%, var(--light-color-pink) 0%, transparent 40vmax), 
         radial-gradient(circle at 90% 10%, var(--light-color-pink) 0%, var(--light-color-blue) 5%, transparent 35vmax); 
