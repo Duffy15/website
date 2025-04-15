@@ -388,4 +388,334 @@ section:last-of-type {
 .close-nav {
     position: absolute;
     top: 20px;
-    right
+    right: 25px;
+    background: none;
+    border: none;
+    color: var(--color-text-light);
+    font-size: 1.8rem; /* Adjusted size for xmark */
+    font-weight: lighter;
+    cursor: pointer;
+    line-height: 1;
+    padding: 10px; /* Hit area */
+    margin: -10px; /* Counteract padding */
+}
+.close-nav:hover { color: var(--color-accent); }
+/* Ensure icon inside close button is styled */
+.close-nav i {
+    display: block; /* Prevents layout shifts */
+}
+
+.overlay-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+.overlay-nav ul li {
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid var(--section-separator-color);
+}
+.overlay-nav ul li:last-child { border-bottom: none; }
+.overlay-nav ul li a {
+    display: block;
+    padding: 18px 10px;
+    color: var(--color-text-light);
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 600; /* Semi-bold */
+    transition: color var(--transition-speed), background-color var(--transition-speed);
+}
+.overlay-nav ul li a:hover,
+.overlay-nav ul li a.active {
+    color: var(--color-accent);
+}
+
+
+/* --- Hero Section --- */
+.hero-section {
+    min-height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px 5%; /* Standard padding includes top offset now */
+    border-bottom: none;
+    position: relative;
+    /* No margin-top needed, standard section padding handles offset */
+}
+.hero-content { max-width: 800px; }
+.hero-content h1 { margin-bottom: 1rem; }
+.hero-content p { font-size: 1.15rem; margin-bottom: 2.5rem; opacity: 0.9; font-weight: 400; } /* Regular weight */
+
+
+/* --- Overview Section (Home) --- */
+.overview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 2rem;
+}
+.overview-item {
+    background-color: var(--card-bg-color);
+    border-radius: 8px;
+    padding: 30px;
+    text-align: center;
+    border: 1px solid var(--section-separator-color);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+.overview-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+.overview-icon { font-size: 2.8rem; color: var(--color-accent); margin-bottom: 1rem; }
+.overview-item h3 { color: var(--heading-color); }
+.overview-item p { font-size: 0.95rem; opacity: 0.9; margin-bottom: 1.5rem; font-weight: 400; }
+.learn-more { font-weight: 600; font-size: 0.9rem; }
+
+/* --- Why Us Section (Home) --- */
+.why-us-section .content-container { max-width: 800px; margin: 0 auto; text-align: center; }
+.why-us-section ul { list-style: none; padding: 0; margin: 2rem 0; }
+.why-us-section ul li { margin-bottom: 0.8rem; font-size: 1.05rem; font-weight: 400;}
+.why-us-section ul li i { color: var(--color-accent); margin-right: 10px; }
+
+/* --- Product Page --- */
+.product-category { margin-bottom: 4rem; }
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+    margin-top: 2rem;
+}
+.product-item {
+    background-color: var(--card-bg-color);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--section-separator-color);
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    display: flex;
+    flex-direction: column;
+}
+.product-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+.product-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    background-color: #ccc; /* Placeholder background */
+}
+.product-item h3 { padding: 20px 20px 5px; font-size: 1.3rem; margin-bottom: 0.5rem; font-weight: 600; }
+.product-item p { padding: 0 20px 15px; font-size: 0.9rem; flex-grow: 1; opacity: 0.9; font-weight: 400;}
+.product-item .cta-button { margin: 0 20px 20px; display: block; text-align: center; }
+
+.cta-section { text-align: center; padding: 50px 5%; border-top: 1px solid var(--section-separator-color); }
+
+/* --- Apparel Page --- */
+.apparel-info { margin-bottom: 3rem; }
+.apparel-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+.apparel-item { text-align: center; }
+.apparel-item img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: 8px;
+    margin: 0 auto 1rem;
+    box-shadow: 0 5px 15px rgba(0,0,0, 0.1);
+    background-color: #ccc; /* Placeholder background */
+}
+.apparel-item h3 { font-size: 1.4rem; font-weight: 600; }
+
+.customization-details { padding-top: 3rem; }
+.customization-details h2 { margin-bottom: 2rem; }
+.customization-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 3rem;
+}
+.customization-columns .column {
+    background-color: var(--card-bg-color);
+    padding: 30px;
+    border-radius: 8px;
+    border: 1px solid var(--section-separator-color);
+}
+.customization-columns .column i { font-size: 2.5rem; color: var(--color-accent); margin-bottom: 1rem; display: block; }
+.customization-columns .column h3 { font-size: 1.3rem; font-weight: 600;}
+.customization-columns .column ul { list-style: disc; padding-left: 20px; margin-top: 1rem; font-size: 0.95rem; opacity: 0.9; font-weight: 400;}
+.customization-columns .column ul li { margin-bottom: 0.5rem; }
+.centered-cta { text-align: center; }
+
+/* --- About Page --- */
+.about-content .content-image-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+.about-content .content-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0, 0.1);
+    background-color: #ccc; /* Placeholder background */
+}
+.values-section { padding-top: 3rem; }
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    text-align: center;
+}
+.benefit-icon { font-size: 2.5rem; color: var(--color-accent); margin-bottom: 1rem; }
+.benefit-item h3 { font-size: 1.2rem; margin-bottom: 0.5rem; font-weight: 600; }
+.benefit-item p { font-size: 1rem; opacity: 0.9; font-weight: 400;}
+
+
+/* --- Contact Page --- */
+.contact-info-section { padding-top: 2rem; }
+.contact-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+}
+.contact-info h2, .contact-form-container h2 { text-align: left; margin-bottom: 1.5rem; }
+.contact-info p { margin-bottom: 1rem; display: flex; align-items: flex-start; font-size: 1.05rem; font-weight: 400;}
+.contact-info p i {
+    color: var(--color-accent);
+    margin-right: 15px;
+    width: 20px;
+    text-align: center;
+    flex-shrink: 0;
+    padding-top: 0.2em;
+}
+.contact-info a { color: var(--text-color); font-weight: 400; } /* Ensure links have normal weight */
+.contact-info a:hover { color: var(--color-accent); }
+.map-embed { margin-top: 2rem; border-radius: 8px; overflow: hidden;}
+
+.contact-form-container { }
+
+/* Form Styles */
+#contact-form { margin-top: 0; max-width: none; padding: 0; background: none;}
+.form-group { margin-bottom: 1.5rem; }
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600; /* Semi-bold label */
+    color: var(--heading-color);
+}
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--section-separator-color);
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-color);
+    font-family: var(--font-body); /* Ensure form fields use body font */
+    font-size: 1rem;
+    font-weight: 400; /* Regular weight */
+    transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2); /* Use accent color with alpha */
+}
+.form-group textarea { resize: vertical; min-height: 120px; }
+#contact-form button[type="submit"] { display: inline-block; width: auto; margin-top: 1rem; }
+.form-notice { font-size: 0.85rem; margin-top: 1.5rem; opacity: 0.7; text-align: left; }
+
+
+/* --- Footer --- */
+.main-footer {
+    text-align: center;
+    padding: 40px 5%;
+    margin-top: auto;
+    background-color: var(--footer-bg); /* Uses black now from :root */
+    border-top: 1px solid var(--section-separator-color);
+    font-size: 0.9rem;
+    opacity: 0.8;
+    position: relative; /* Ensure footer is above pseudo-element */
+    z-index: 1;
+}
+.main-footer p { margin-bottom: 0.5rem; font-weight: 400; }
+
+
+/* --- Scroll Animation --- */
+.fade-in-section {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.fade-in-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* --- Responsiveness --- */
+@media (max-width: 992px) { /* Tablet and below */
+    .main-nav > ul {
+        display: none;
+    }
+    .hamburger-menu {
+        display: block;
+    }
+    /* No need for .header-hidden .hamburger-menu.hamburger-visible here */
+    /* It's always block on mobile */
+
+    .customization-columns,
+    .about-content .content-image-split,
+    .contact-columns {
+        grid-template-columns: 1fr;
+    }
+     .about-content .content-image { margin-top: 2rem; }
+     .contact-form-container { margin-top: 2rem; }
+}
+
+@media (max-width: 768px) { /* Mobile */
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.7rem; }
+
+    .main-nav { height: 65px; }
+
+    /* Adjust first section padding for mobile header height */
+    .hero-section, .page-title {
+         padding-top: 85px; /* Adjust padding for 65px header */
+    }
+
+    section { padding: 50px 5%; }
+
+    .overview-grid, .product-grid, .benefits-grid, .apparel-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+    .product-item img { height: 180px; }
+    .contact-columns { gap: 30px; }
+
+    .mobile-nav-overlay { width: 85%; }
+}
+
+@media (max-width: 480px) { /* Smaller mobile */
+     h1 { font-size: 1.8rem; }
+     h2 { font-size: 1.5rem; }
+     .cta-button { padding: 10px 20px; font-size: 0.9rem;}
+     .mobile-nav-overlay { width: 90%; }
+     .overlay-nav ul li a { font-size: 1.1rem; padding: 15px 5px; }
+     .close-nav { font-size: 1.8rem; top: 15px; right: 20px;} /* Adjusted size */
+
+     /* Adjust first section padding for smaller mobile header height if needed */
+     .hero-section, .page-title {
+         padding-top: 80px; /* Fine-tune if needed */
+     }
+}
