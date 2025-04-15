@@ -10,46 +10,40 @@
 }
 
 :root {
-    /* Color Palette (Revised for more distinction) */
-    --color-primary: #007bff;         /* Electric Blue - New Primary Accent */
-    --color-secondary-accent: #e94560;/* Pink/Red - Can be used for secondary highlights */
+    /* Color Palette */
+    --color-primary: #007bff;         /* Electric Blue */
+    --color-secondary-accent: #e94560;/* Pink/Red */
     --color-text-light: #f0f0f0;
-    --color-text-dark: #212529;
     --color-heading-light: #ffffff;
-    --color-bg-light-start: #eef2f3;
-    --color-bg-light-end: #ffffff;
-    --color-bg-dark-start: #1f2b3e;  /* Slightly lighter dark blue start */
-    --color-bg-dark-end: #101826;    /* Slightly deeper dark end */
-    --color-card-bg-dark: rgba(31, 43, 62, 0.65); /* Adjusted card background */
+    /* Add Light Colors for ambient effect */
+    --light-color-blue: rgba(0, 123, 255, 0.15); /* Blue glow (adjust opacity 0.15 as needed) */
+    --light-color-pink: rgba(233, 69, 96, 0.15); /* Pink glow (adjust opacity 0.15 as needed) */
+    /* Keep other color variables */
+    --color-card-bg-dark: rgba(31, 43, 62, 0.65);
     --glass-blur: 8px;
-
-    /* --- Active Theme (Dark Mode) --- */
-    --bg-gradient: linear-gradient(170deg, var(--color-bg-dark-start) 0%, var(--color-bg-dark-end) 100%);
-    --text-color: var(--color-text-light);
-    --heading-color: var(--color-heading-light);
-    --card-bg-color: var(--color-card-bg-dark);
     --nav-bg: rgba(26, 41, 64, 0.85);
     --nav-text: var(--color-heading-light);
-    --footer-bg: var(--color-bg-dark-end);
+    --footer-bg: #000000; /* Changed footer to black */
     --button-tertiary-bg: rgba(255, 255, 255, 0.1);
     --button-tertiary-text: var(--color-text-light);
     --button-tertiary-hover-bg: rgba(255, 255, 255, 0.2);
     --section-separator-color: rgba(255, 255, 255, 0.1);
     --overlay-bg: #152033;
+    --color-accent: var(--color-primary);
 
-    /* --- Accent Color Usage --- */
-    --color-accent: var(--color-primary); /* Using the Electric Blue as main accent */
+    /* Fonts */
+    --font-heading: 'Source Sans Pro', sans-serif;
+    --font-body: 'Source Sans Pro', sans-serif;
 
-
-    /* --- Fonts --- */
-    --font-heading: 'Source Sans Pro', sans-serif; /* UPDATED FONT */
-    --font-body: 'Source Sans Pro', sans-serif;    /* UPDATED FONT */
-
-    /* --- Transitions & Animations --- */
+    /* Transitions & Animations */
     --transition-speed: 0.4s ease;
     --animation-delay: 0.1s;
     --header-transition-speed: 0.4s ease-out;
     --overlay-transition-speed: 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+
+    /* Variables for mouse position (will be set by JS) */
+    --mouse-x: 50%; /* Default center */
+    --mouse-y: 50%; /* Default center */
 }
 
 html {
@@ -57,14 +51,36 @@ html {
 }
 
 body {
-    font-family: var(--font-body); /* Uses Source Sans Pro via variable */
-    background: var(--bg-gradient);
+    font-family: var(--font-body);
+    /* background: var(--bg-gradient); <-- Removed this */
+    background-color: #000000; /* Set solid black background */
     color: var(--text-color);
     line-height: 1.7;
     overflow-x: hidden;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    position: relative; /* Needed for pseudo-element positioning */
+    z-index: 0; /* Ensure body is below pseudo-element */
+}
+
+body::before {
+    content: "";
+    position: fixed; /* Cover viewport */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* Place behind content */
+    z-index: -1;
+    /* Create two large, soft radial gradients positioned by mouse variables */
+    background:
+        radial-gradient(circle at var(--mouse-x) var(--mouse-y), var(--light-color-blue) 0%, transparent 35%), /* Blue light */
+        radial-gradient(circle at var(--mouse-x) var(--mouse-y), var(--light-color-pink) 0%, transparent 35%); /* Pink light */
+    /* Optional: Blend modes can create different effects */
+    /* background-blend-mode: screen; */
+    /* Prevent mouse events on the pseudo-element */
+    pointer-events: none;
 }
 /* Prevent body scroll when overlay is open */
 body.overlay-open {
