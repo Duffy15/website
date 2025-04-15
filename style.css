@@ -78,22 +78,23 @@ body {
     background: transparent; /* Body itself is transparent */
 }
 
-/* --- TEMPORARY TEST - Replace entire body::before rule --- */
+/* --- TEMPORARY TEST 2 - Force Foreground --- */
 body::before {
     content: "";
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
-    z-index: -1; /* Behind body content */
+    /* z-index: -1; */  /* Commented out old z-index */
+    z-index: 10000;    /* Set HIGH positive z-index */
 
-    /* Test: Black background + ONE simple, bright, centered gradient */
+    /* Using the simple test background */
     background:
         #000000, /* Black layer */
-        radial-gradient(circle at 50% 50%, rgba(0, 123, 255, 1) 0%, transparent 50%); /* BRIGHT blue (100% opacity), centered, simple % size */
+        radial-gradient(circle at 50% 50%, rgba(0, 123, 255, 1) 0%, transparent 50%); /* Bright blue */
 
     background-repeat: no-repeat;
-    pointer-events: none;
+    /* pointer-events: none; */ /* Commented out to allow inspection if needed */
 }
-/* --- END TEMPORARY TEST --- */
+/* --- END TEMPORARY TEST 2 --- */
 
 /* Prevent body scroll when overlay is open */
 body.overlay-open {
