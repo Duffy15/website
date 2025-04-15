@@ -66,8 +66,9 @@ body {
     overflow-x: hidden; /* Prevent horizontal scroll */
 
     /* Apply background directly - COMMENT REMOVED */
-   /* Inside body rule */
-background: black;
+/* Inside body rule */
+background: radial-gradient(circle, #007bff, black); /* Simple gradient blue to black */
+background-attachment: fixed; /* Keep fixed attachment */
 
 
     /* Layout properties for wrapper structure */
