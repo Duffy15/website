@@ -225,13 +225,68 @@ section:last-of-type { border-bottom: none; }
 /* Product Page */
 .product-category { margin-bottom: 4rem; }
 .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; margin-top: 2rem; } /* ADDED */
-.product-item { background-color: var(--color-card-bg-dark); border-radius: 8px; overflow: hidden; border: 1px solid var(--section-separator-color); transition: transform var(--transition-speed), box-shadow var(--transition-speed); display: flex; flex-direction: column; }
-.product-item:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); }
-.product-item img { width: 100%; height: 200px; object-fit: cover; background-color: #ccc; }
-.product-item h3 { padding: 20px 20px 5px; font-size: 1.3rem; margin-bottom: 0.5rem; font-weight: 500; }
-.product-item p { padding: 0 20px 15px; font-size: 0.9rem; flex-grow: 1; opacity: 0.9; font-weight: 400;}
-.product-item .cta-button { margin: 0 20px 20px; display: block; text-align: center; }
+.product-item {
+    background-color: var(--color-card-bg-dark); /* Already matches */
+    border-radius: 8px; /* Already matches */
+    overflow: hidden; /* Keep for image */
+    border: 1px solid var(--section-separator-color); /* Already matches */
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed); /* Already matches */
+    display: flex; /* Keep for layout */
+    flex-direction: column; /* Keep for layout */
 
+    /* --- ADD THESE LINES --- */
+    padding: 30px; /* Match overview item padding */
+    text-align: center; /* Match overview item text align */
+    backdrop-filter: blur(var(--glass-blur)); /* Match overview item blur */
+    -webkit-backdrop-filter: blur(var(--glass-blur)); /* Match overview item blur */
+    /* --- END ADDED LINES --- */
+}
+
+.product-item:hover { /* Keep hover effect */
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.product-item img { /* Keep image styles */
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    background-color: #ccc;
+    /* Adjust margins if padding is added */
+    margin: -30px -30px 0 -30px; /* Stretch image to edges before padding */
+    width: calc(100% + 60px); /* Account for padding */
+    border-bottom: 1px solid var(--section-separator-color); /* Add separator */
+    margin-bottom: 20px; /* Space below image */
+}
+.product-item h3 {
+    /* Remove padding here, handled by parent */
+    /* padding: 20px 20px 5px; */
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    /* Add margin-top if needed after removing padding */
+    /* margin-top: 20px; */
+}
+.product-item p {
+    /* Remove padding here, handled by parent */
+    /* padding: 0 20px 15px; */
+    font-size: 0.9rem;
+    flex-grow: 1;
+    opacity: 0.9;
+    font-weight: 400;
+    margin-bottom: 1.5rem; /* Adjust spacing before button */
+}
+.product-item .cta-button {
+    /* Remove specific padding margins here? Let parent padding handle spacing? */
+    /* margin: 0 20px 20px; */
+    display: block; /* Keep display block if desired */
+    text-align: center; /* Already set by parent */
+    margin-top: auto; /* Push button to bottom if card height varies */
+    margin-left: auto; /* Center button if needed */
+    margin-right: auto;
+    margin-bottom: 0; /* Padding handled by parent */
+    width: fit-content; /* Or max-width */
+}
 .cta-section { text-align: center; padding: 50px 5%; border-top: 1px solid var(--section-separator-color); }
 
 /* Apparel Page */
