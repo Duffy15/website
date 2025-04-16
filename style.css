@@ -44,8 +44,8 @@
     --color-accent: var(--color-primary);
 
     /* Fonts */
-    --font-heading: 'Playfair Display', serif; 
-    --font-body: 'Source Sans Pro', sans-serif;
+    --font-heading: 'Poppins', sans-serif; /* CHANGED to Poppins */
+    --font-body: 'Poppins', sans-serif;    /* CHANGED to Poppins */
 
     /* Transitions & Animations */
     --transition-speed: 0.4s ease;
