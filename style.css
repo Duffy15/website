@@ -178,7 +178,7 @@ section:last-of-type { border-bottom: none; }
 .logo a:hover { color: transparent; }
 .main-nav > ul { list-style: none; display: flex; margin: 0; padding: 0; }
 .main-nav > ul li { margin-left: 25px; }
-.main-nav > ul li a { color: var(--nav-text); font-weight: 400; font-size: 0.95rem; padding-bottom: 5px; border-bottom: 2px solid transparent; transition: color var(--transition-speed), border-color var(--transition-speed); white-space: nowrap; }
+.main-nav > ul li a { color: var(--nav-text); font-weight: 200; font-size: 0.95rem; padding-bottom: 5px; border-bottom: 2px solid transparent; transition: color var(--transition-speed), border-color var(--transition-speed); white-space: nowrap; }
 .main-nav > ul li a:hover, .main-nav > ul li a:focus, .main-nav > ul li a.active { color: var(--color-accent); border-bottom-color: var(--color-accent); }
 
 /* Hamburger Menu */
