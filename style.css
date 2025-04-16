@@ -44,7 +44,7 @@
     --color-accent: var(--color-primary);
 
     /* Fonts */
-    --font-heading: 'Source Sans Pro', sans-serif;
+    --font-heading: 'Playfair Display', serif; 
     --font-body: 'Source Sans Pro', sans-serif;
 
     /* Transitions & Animations */
