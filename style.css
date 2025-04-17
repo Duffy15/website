@@ -247,16 +247,28 @@ section:last-of-type { border-bottom: none; }
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
-.product-item img { /* Keep image styles */
-    width: 100%;
-    height: 200px;
+.product-item img {
+    /* REMOVE styles that stretched it edge-to-edge */
+    /* margin: -30px -30px 0 -30px; */
+    /* width: calc(100% + 60px); */
+
+    /* Keep or set desired display and object-fit */
+    display: block; /* Make sure it's a block element */
     object-fit: cover;
-    background-color: #ccc;
-    /* Adjust margins if padding is added */
-    margin: -30px -30px 0 -30px; /* Stretch image to edges before padding */
-    width: calc(100% + 60px); /* Account for padding */
-    border-bottom: 1px solid var(--section-separator-color); /* Add separator */
+    background-color: #ccc; /* Placeholder color */
+    border-bottom: 1px solid var(--section-separator-color); /* Optional separator */
+    border-radius: 4px; /* Optional: slightly round corners */
+
+    /* Set dimensions and center */
+    width: 100%; /* Allow it to take container width */
+    max-width: 250px; /* <<< Set a maximum width (Adjust value as needed) */
+    height: auto; /* Maintain aspect ratio */
+    margin-left: auto; /* <<< Center the block */
+    margin-right: auto; /* <<< Center the block */
+
+    /* Adjust spacing */
     margin-bottom: 20px; /* Space below image */
+    margin-top: 0; /* Remove top margin if any */
 }
 .product-item h3 {
     /* Remove padding here, handled by parent */
